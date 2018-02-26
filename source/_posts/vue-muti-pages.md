@@ -281,7 +281,8 @@ module.exports = {
 
 ```
 
-## 6. CSS工具库
+## 7. CSS工具库
 
+基于Sass的CSS基础库：https://github.com/careteenL/careteen-common-ui
 
-## 7. JS工具库
+## 8. JS工具库
