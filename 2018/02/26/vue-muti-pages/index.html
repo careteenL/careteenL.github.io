@@ -94,7 +94,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/02/26/vue-muti-pages/vue-webpack-4.png">
 <meta property="og:image" content="http://yoursite.com/2018/02/26/vue-muti-pages/vue-webpack-5.png">
 <meta property="og:image" content="http://yoursite.com/2018/02/26/vue-muti-pages/vue-add-page-1.png">
-<meta property="og:updated_time" content="2018-02-26T08:54:29.000Z">
+<meta property="og:updated_time" content="2018-02-26T09:03:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于vue-cli修改的多页面脚手架">
 <meta name="twitter:description" content="1.前言使用vue-cli脚手架可快速搭建一套单页应用并进行开发，这往往适用于B端项目，访问url、路由等由前端控制，且不需要SEO。 工作环境中可能会有一个场景：需要快速开发出多个交互不多且独立的活动页。此时，应该将其独立成一个新项目，便于后期维护。一个能让我们快速进入开发的脚手架就显得尤为重要。 脚手架地址： https://github.com/careteenL/vue-multi-pag">
@@ -204,7 +204,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Startseite
+            Home
           </a>
         </li>
       
@@ -224,7 +224,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archiv
+            Archives
           </a>
         </li>
       
@@ -288,7 +288,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-26T11:33:27+08:00">
                 2018-02-26
@@ -309,7 +309,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -386,8 +386,8 @@
 <p><img src="/2018/02/26/vue-muti-pages/vue-add-page-1.png" alt="vue-add-page-1"></p>
 <h2 id="5-封装请求库（axios）"><a href="#5-封装请求库（axios）" class="headerlink" title="5. 封装请求库（axios）"></a>5. 封装请求库（axios）</h2><p>在server目录下新增fetch.js<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">'axios'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @desc 封装axios，减少学习成本，参数基本跟jq ajax一致</span></span><br><span class="line"><span class="comment"> * @param &#123;String&#125; type [default: GET]                     请求的类型</span></span><br><span class="line"><span class="comment"> * @param &#123;String&#125; url			                           请求地址</span></span><br><span class="line"><span class="comment"> * @param &#123;String&#125; time  [default: 10s]			           超时时间</span></span><br><span class="line"><span class="comment"> * @param &#123;Object&#125; data		               	               请求参数</span></span><br><span class="line"><span class="comment"> * @param &#123;Boolean&#125; withCredentials  [default: false]	   是否携带cookie</span></span><br><span class="line"><span class="comment"> * @param &#123;String&#125; dataType         		               预期服务器返回的数据类型，xml html json ...</span></span><br><span class="line"><span class="comment"> * @param &#123;Object&#125; headers          		               自定义请求headers</span></span><br><span class="line"><span class="comment"> * @param &#123;Function&#125; success            	               请求成功后，这里会有两个参数,服务器返回数据，返回状态，[data, res]</span></span><br><span class="line"><span class="comment"> * @param &#123;Function&#125; error		                           发送请求前</span></span><br><span class="line"><span class="comment"> * @return &#123;Promise&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> ajax = <span class="function"><span class="keyword">function</span> (<span class="params">config</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> configs = config || &#123;&#125;;</span><br><span class="line">    <span class="keyword">if</span> (!configs.url) &#123;</span><br><span class="line">        <span class="built_in">console</span>.error(<span class="string">'请填写接口地址'</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    axios(&#123;</span><br><span class="line">        method: configs.type || <span class="string">'get'</span>,</span><br><span class="line">        url: configs.url,</span><br><span class="line">        params: configs.data || &#123;&#125;,</span><br><span class="line">        header: configs.headers || &#123;</span><br><span class="line">            <span class="string">'Content-Type'</span>:<span class="string">'application/x-www-form-urlencoded'</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">// baseURL: '',</span></span><br><span class="line">        withCredentials: configs.withCredentials || <span class="literal">false</span>,</span><br><span class="line">        timeout: configs.time || <span class="number">10</span> * <span class="number">1000</span>,</span><br><span class="line">        responseType: configs.dataType || <span class="string">'json'</span></span><br><span class="line">    &#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="number">200</span> == res.status) &#123;</span><br><span class="line">            <span class="keyword">if</span> (configs.success) &#123;</span><br><span class="line">                configs.success(res.data, res);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (data.error) &#123;</span><br><span class="line">                configs.error(error)</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="built_in">console</span>.error(<span class="string">'[timeout] 访问人数过多，请稍后重试'</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;).catch(<span class="function"><span class="keyword">function</span>(<span class="params">error</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.error(error);</span><br><span class="line">        <span class="keyword">if</span> (configs.error) &#123;</span><br><span class="line">            configs.error(error);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">console</span>.error(<span class="string">'[timeout] 访问人数过多，请稍后重试'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> ajax;</span><br></pre></td></tr></table></figure></p>
 <h2 id="6-区分local、dev、test、prod环境"><a href="#6-区分local、dev、test、prod环境" class="headerlink" title="6. 区分local、dev、test、prod环境"></a>6. 区分local、dev、test、prod环境</h2><p>新增<code>src/config.js</code><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @desc 全局域名等变量维护</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> byProxy = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">var</span> mainDomain;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 本地开发走proxy */</span></span><br><span class="line"><span class="keyword">if</span> (<span class="regexp">/\d+\.\d+\.\d+\.\d+/</span>.test(location.host)) &#123;</span><br><span class="line">    byProxy = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 测试线上等环境 */</span></span><br><span class="line"><span class="keyword">if</span> (!byProxy) &#123;</span><br><span class="line">    <span class="keyword">var</span> hostArr = location.hostname.split(<span class="string">'.'</span>);</span><br><span class="line">    mainDomain = <span class="string">"."</span> + hostArr[hostArr.length - <span class="number">2</span>] + <span class="string">'.'</span> + hostArr[hostArr.length - <span class="number">1</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    mainDomain: byProxy ? <span class="string">"127.0.0.1"</span> : mainDomain,</span><br><span class="line"></span><br><span class="line">    testDomain: byProxy ? <span class="string">""</span> : <span class="string">"//test"</span> + mainDomain</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="6-CSS工具库"><a href="#6-CSS工具库" class="headerlink" title="6. CSS工具库"></a>6. CSS工具库</h2><p>基于Sass的CSS基础库：<a href="https://github.com/careteenL/careteen-common-ui" target="_blank" rel="noopener">https://github.com/careteenL/careteen-common-ui</a></p>
-<h2 id="7-JS工具库"><a href="#7-JS工具库" class="headerlink" title="7. JS工具库"></a>7. JS工具库</h2>
+<h2 id="7-CSS工具库"><a href="#7-CSS工具库" class="headerlink" title="7. CSS工具库"></a>7. CSS工具库</h2><p>基于Sass的CSS基础库：<a href="https://github.com/careteenL/careteen-common-ui" target="_blank" rel="noopener">https://github.com/careteenL/careteen-common-ui</a></p>
+<h2 id="8-JS工具库"><a href="#8-JS工具库" class="headerlink" title="8. JS工具库"></a>8. JS工具库</h2>
       
     </div>
     
@@ -428,6 +428,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/27/eventEmittter/" rel="prev" title="一个简单的事件订阅机制eventEmittter">
+                一个简单的事件订阅机制eventEmittter <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -484,10 +488,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Inhaltsverzeichnis
+            Table of Contents
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Übersicht
+            Overview
           </li>
         </ul>
       
@@ -507,8 +511,8 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
-                  <span class="site-state-item-name">Artikel</span>
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">posts</span>
                 </a>
               </div>
             
@@ -518,8 +522,8 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
-                  <span class="site-state-item-name">Kategorien</span>
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
                 </a>
               </div>
             
@@ -529,8 +533,8 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
-                  <span class="site-state-item-name">Tags</span>
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
                 </a>
               </div>
             
@@ -562,7 +566,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-前言"><span class="nav-number">1.</span> <span class="nav-text">1.前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-安装vue-cli"><span class="nav-number">2.</span> <span class="nav-text">2. 安装vue-cli</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-修改webpack配置"><span class="nav-number">3.</span> <span class="nav-text">3. 修改webpack配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-新增页面"><span class="nav-number">4.</span> <span class="nav-text">4. 新增页面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-封装请求库（axios）"><span class="nav-number">5.</span> <span class="nav-text">5. 封装请求库（axios）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-区分local、dev、test、prod环境"><span class="nav-number">6.</span> <span class="nav-text">6. 区分local、dev、test、prod环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-CSS工具库"><span class="nav-number">7.</span> <span class="nav-text">6. CSS工具库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-JS工具库"><span class="nav-number">8.</span> <span class="nav-text">7. JS工具库</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-前言"><span class="nav-number">1.</span> <span class="nav-text">1.前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-安装vue-cli"><span class="nav-number">2.</span> <span class="nav-text">2. 安装vue-cli</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-修改webpack配置"><span class="nav-number">3.</span> <span class="nav-text">3. 修改webpack配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-新增页面"><span class="nav-number">4.</span> <span class="nav-text">4. 新增页面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-封装请求库（axios）"><span class="nav-number">5.</span> <span class="nav-text">5. 封装请求库（axios）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-区分local、dev、test、prod环境"><span class="nav-number">6.</span> <span class="nav-text">6. 区分local、dev、test、prod环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-CSS工具库"><span class="nav-number">7.</span> <span class="nav-text">7. CSS工具库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-JS工具库"><span class="nav-number">8.</span> <span class="nav-text">8. JS工具库</span></a></li></ol></div>
             
 
           </div>
@@ -592,7 +596,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 

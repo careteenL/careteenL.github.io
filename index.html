@@ -194,7 +194,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Startseite
+            Home
           </a>
         </li>
       
@@ -214,7 +214,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archiv
+            Archives
           </a>
         </li>
       
@@ -237,6 +237,166 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/27/eventEmittter/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Careteen Wang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Careteen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/27/eventEmittter/" itemprop="url">一个简单的事件订阅机制eventEmittter</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-27T10:35:30+08:00">
+                2018-02-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JS/" itemprop="url" rel="index">
+                    <span itemprop="name">JS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/02/27/eventEmittter/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/02/27/eventEmittter/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在日常工作跨模块开发时，很常见的一个场景：不同模块间的事件通信。</p>
+<p>以下给出ES5、ES6两种实现方式。</p>
+<h2 id="ES5实现"><a href="#ES5实现" class="headerlink" title="ES5实现"></a>ES5实现</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 挂载到全局</span></span><br><span class="line"><span class="keyword">var</span> events = &#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> Events = &#123;</span><br><span class="line">    on: <span class="function"><span class="keyword">function</span> (<span class="params">key, fn</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> fn !== <span class="string">'function'</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        events[key] = events[key] || [];</span><br><span class="line">        events[key].push(fn);</span><br><span class="line">    &#125;,</span><br><span class="line">    once: <span class="function"><span class="keyword">function</span> (<span class="params">key, fn</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> fn !== <span class="string">'function'</span> || (fn.once &amp;&amp; fn.hasExeced)) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        fn.once = <span class="literal">true</span>;</span><br><span class="line">        fn.hasExeced = <span class="literal">false</span>;</span><br><span class="line">        events[key] = events[key] || [];</span><br><span class="line">        events[key].push(fn);</span><br><span class="line">    &#125;,</span><br><span class="line">    trigger: <span class="function"><span class="keyword">function</span> (<span class="params">key</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> args = [].slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">var</span> fnList = events[key] || [];</span><br><span class="line">        fnList.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">item</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">typeof</span> item === <span class="string">'function'</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (item.once &amp;&amp; item.hasExeced) &#123;</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (item.once &amp;&amp; !item.hasExeced) &#123;</span><br><span class="line">                    item.hasExeced = <span class="literal">true</span>;</span><br><span class="line">                    item.apply(<span class="built_in">window</span>, args);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    item.apply(<span class="built_in">window</span>, args);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = Events;</span><br></pre></td></tr></table></figure>
+<h2 id="ES6实现"><a href="#ES6实现" class="headerlink" title="ES6实现"></a>ES6实现</h2><h3 id="订阅者"><a href="#订阅者" class="headerlink" title="订阅者"></a>订阅者</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 工具函数：是否为函数</span></span><br><span class="line"><span class="keyword">let</span> isFunction = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">typeof</span> obj == <span class="string">'function'</span> || <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EventEmitter</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Map 存放不同事件对应的观察者的处理函数</span></span><br><span class="line">    <span class="keyword">constructor</span>()&#123;</span><br><span class="line">        <span class="keyword">this</span>.listeners = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 绑定事件</span></span><br><span class="line">    on(label, callback) &#123;</span><br><span class="line">        <span class="keyword">this</span>.listeners.has(label) || <span class="keyword">this</span>.listeners.set(label, []);</span><br><span class="line">        <span class="keyword">this</span>.listeners.get(label).push(callback);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 移除事件</span></span><br><span class="line">    off(label, callback) &#123;</span><br><span class="line">        <span class="keyword">let</span> listenerArr = <span class="keyword">this</span>.listeners.get(label);</span><br><span class="line">        <span class="keyword">let</span> targetIndex;</span><br><span class="line">        <span class="keyword">if</span> (listenerArr &amp;&amp; listenerArr.length) &#123;</span><br><span class="line">            targetIndex = listenerArr.reduce(<span class="function">(<span class="params">i, listener, index</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> (isFunction(listener) &amp;&amp; listener === callback) ? i = index : i;</span><br><span class="line">            &#125;, <span class="number">-1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (targetIndex &gt; <span class="number">-1</span>) &#123;</span><br><span class="line">            listenerArr.splice(targetIndex, <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">this</span>.listeners.set(label, listenerArr);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 触发事件</span></span><br><span class="line">    emit(label, ...args) &#123;</span><br><span class="line">        <span class="keyword">let</span> listenerArr = <span class="keyword">this</span>.listeners.get(label);</span><br><span class="line">        <span class="keyword">if</span> (listenerArr &amp;&amp; listenerArr.length) &#123;</span><br><span class="line">            listenerArr.forEach(<span class="function">(<span class="params">listener</span>) =&gt;</span> &#123;</span><br><span class="line">                listener(...args);</span><br><span class="line">            &#125;)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="观察者"><a href="#观察者" class="headerlink" title="观察者"></a>观察者</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Observer</span> </span>&#123;</span><br><span class="line">    <span class="comment">// subject 保存订阅对象</span></span><br><span class="line">    <span class="keyword">constructor</span>(id, subject) &#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">        <span class="keyword">this</span>.subject = subject;</span><br><span class="line">    &#125;</span><br><span class="line">    on(label, callback) &#123;</span><br><span class="line">        <span class="keyword">this</span>.subject.on(label,callback);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> publisher = <span class="keyword">new</span> EventEmitter();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实例两个观察者</span></span><br><span class="line"><span class="keyword">let</span> [observer1, observer2] = [</span><br><span class="line">    <span class="keyword">new</span> Observer(<span class="number">1</span>, publisher),</span><br><span class="line">    <span class="keyword">new</span> Observer(<span class="number">2</span>, publisher)</span><br><span class="line">];</span><br><span class="line"><span class="comment">// 绑定事件</span></span><br><span class="line">observer1.on(<span class="string">'careteen'</span>, (data) =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;observer1.id&#125;</span> observered data:`</span>, data);</span><br><span class="line">&#125;);</span><br><span class="line">observer2.on(<span class="string">'lanlan'</span>, (data) =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;observer2.id&#125;</span> observered data:`</span>, data);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 触发事件</span></span><br><span class="line">publisher.emit(<span class="string">'careteen'</span>, &#123;<span class="attr">x</span>:<span class="string">'youxiugai'</span>&#125;); <span class="comment">// 1 observered data: &#123;x:'youxiugai'&#125;</span></span><br><span class="line">publisher.emit(<span class="string">'lanlan'</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]); <span class="comment">// 2 observered data: [1, 2, 3]</span></span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>每一根线都有生命，经年生长，日渐成熟，最终布料才能呈现它曾深藏不露的美丽。</p>
+<pre><code>-- 发酵自己吧
+</code></pre><p>参考：Implementing EventEmitter in ES6 <a href="http://www.datchley.name/es6-eventemitter/" target="_blank" rel="noopener">http://www.datchley.name/es6-eventemitter/</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -280,7 +440,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-26T11:33:27+08:00">
                 2018-02-26
@@ -301,7 +461,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -380,8 +540,8 @@
 <p><img src="/2018/02/26/vue-muti-pages/vue-add-page-1.png" alt="vue-add-page-1"></p>
 <h2 id="5-封装请求库（axios）"><a href="#5-封装请求库（axios）" class="headerlink" title="5. 封装请求库（axios）"></a>5. 封装请求库（axios）</h2><p>在server目录下新增fetch.js<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">'axios'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @desc 封装axios，减少学习成本，参数基本跟jq ajax一致</span></span><br><span class="line"><span class="comment"> * @param &#123;String&#125; type [default: GET]                     请求的类型</span></span><br><span class="line"><span class="comment"> * @param &#123;String&#125; url			                           请求地址</span></span><br><span class="line"><span class="comment"> * @param &#123;String&#125; time  [default: 10s]			           超时时间</span></span><br><span class="line"><span class="comment"> * @param &#123;Object&#125; data		               	               请求参数</span></span><br><span class="line"><span class="comment"> * @param &#123;Boolean&#125; withCredentials  [default: false]	   是否携带cookie</span></span><br><span class="line"><span class="comment"> * @param &#123;String&#125; dataType         		               预期服务器返回的数据类型，xml html json ...</span></span><br><span class="line"><span class="comment"> * @param &#123;Object&#125; headers          		               自定义请求headers</span></span><br><span class="line"><span class="comment"> * @param &#123;Function&#125; success            	               请求成功后，这里会有两个参数,服务器返回数据，返回状态，[data, res]</span></span><br><span class="line"><span class="comment"> * @param &#123;Function&#125; error		                           发送请求前</span></span><br><span class="line"><span class="comment"> * @return &#123;Promise&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> ajax = <span class="function"><span class="keyword">function</span> (<span class="params">config</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> configs = config || &#123;&#125;;</span><br><span class="line">    <span class="keyword">if</span> (!configs.url) &#123;</span><br><span class="line">        <span class="built_in">console</span>.error(<span class="string">'请填写接口地址'</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    axios(&#123;</span><br><span class="line">        method: configs.type || <span class="string">'get'</span>,</span><br><span class="line">        url: configs.url,</span><br><span class="line">        params: configs.data || &#123;&#125;,</span><br><span class="line">        header: configs.headers || &#123;</span><br><span class="line">            <span class="string">'Content-Type'</span>:<span class="string">'application/x-www-form-urlencoded'</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">// baseURL: '',</span></span><br><span class="line">        withCredentials: configs.withCredentials || <span class="literal">false</span>,</span><br><span class="line">        timeout: configs.time || <span class="number">10</span> * <span class="number">1000</span>,</span><br><span class="line">        responseType: configs.dataType || <span class="string">'json'</span></span><br><span class="line">    &#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="number">200</span> == res.status) &#123;</span><br><span class="line">            <span class="keyword">if</span> (configs.success) &#123;</span><br><span class="line">                configs.success(res.data, res);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (data.error) &#123;</span><br><span class="line">                configs.error(error)</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="built_in">console</span>.error(<span class="string">'[timeout] 访问人数过多，请稍后重试'</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;).catch(<span class="function"><span class="keyword">function</span>(<span class="params">error</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.error(error);</span><br><span class="line">        <span class="keyword">if</span> (configs.error) &#123;</span><br><span class="line">            configs.error(error);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">console</span>.error(<span class="string">'[timeout] 访问人数过多，请稍后重试'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> ajax;</span><br></pre></td></tr></table></figure></p>
 <h2 id="6-区分local、dev、test、prod环境"><a href="#6-区分local、dev、test、prod环境" class="headerlink" title="6. 区分local、dev、test、prod环境"></a>6. 区分local、dev、test、prod环境</h2><p>新增<code>src/config.js</code><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @desc 全局域名等变量维护</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> byProxy = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">var</span> mainDomain;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 本地开发走proxy */</span></span><br><span class="line"><span class="keyword">if</span> (<span class="regexp">/\d+\.\d+\.\d+\.\d+/</span>.test(location.host)) &#123;</span><br><span class="line">    byProxy = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 测试线上等环境 */</span></span><br><span class="line"><span class="keyword">if</span> (!byProxy) &#123;</span><br><span class="line">    <span class="keyword">var</span> hostArr = location.hostname.split(<span class="string">'.'</span>);</span><br><span class="line">    mainDomain = <span class="string">"."</span> + hostArr[hostArr.length - <span class="number">2</span>] + <span class="string">'.'</span> + hostArr[hostArr.length - <span class="number">1</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    mainDomain: byProxy ? <span class="string">"127.0.0.1"</span> : mainDomain,</span><br><span class="line"></span><br><span class="line">    testDomain: byProxy ? <span class="string">""</span> : <span class="string">"//test"</span> + mainDomain</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="6-CSS工具库"><a href="#6-CSS工具库" class="headerlink" title="6. CSS工具库"></a>6. CSS工具库</h2><p>基于Sass的CSS基础库：<a href="https://github.com/careteenL/careteen-common-ui" target="_blank" rel="noopener">https://github.com/careteenL/careteen-common-ui</a></p>
-<h2 id="7-JS工具库"><a href="#7-JS工具库" class="headerlink" title="7. JS工具库"></a>7. JS工具库</h2>
+<h2 id="7-CSS工具库"><a href="#7-CSS工具库" class="headerlink" title="7. CSS工具库"></a>7. CSS工具库</h2><p>基于Sass的CSS基础库：<a href="https://github.com/careteenL/careteen-common-ui" target="_blank" rel="noopener">https://github.com/careteenL/careteen-common-ui</a></p>
+<h2 id="8-JS工具库"><a href="#8-JS工具库" class="headerlink" title="8. JS工具库"></a>8. JS工具库</h2>
           
         
       
@@ -458,7 +618,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-24T15:53:08+08:00">
                 2018-02-24
@@ -479,7 +639,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -638,8 +798,8 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
-                  <span class="site-state-item-name">Artikel</span>
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">posts</span>
                 </a>
               </div>
             
@@ -649,8 +809,8 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
-                  <span class="site-state-item-name">Kategorien</span>
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
                 </a>
               </div>
             
@@ -660,8 +820,8 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
-                  <span class="site-state-item-name">Tags</span>
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
                 </a>
               </div>
             
@@ -707,7 +867,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 
