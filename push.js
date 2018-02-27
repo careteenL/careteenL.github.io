@@ -1,3 +1,9 @@
 require('shelljs/global');
 
-exec(`git add . && git commit -m 'add page' && git push`);
+var comment = process.argv[2]
+
+if (!comment) {
+    console.log(`输入注释： node push.js 'add page'`);
+    return
+}
+exec(`git add . && git commit -m ${comment} && git push`);
