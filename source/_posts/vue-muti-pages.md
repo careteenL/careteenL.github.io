@@ -283,6 +283,8 @@ module.exports = {
 
 ## 7. CSS工具库
 
-基于Sass的CSS基础库：https://github.com/careteenL/careteen-common-ui
+基于Sass的CSS基础库：https://github.com/careteenL/common-ui
 
 ## 8. JS工具库
+
+常用js函数： https://github.com/careteenL/webFEDeveloper/blob/master/Util/util.js
