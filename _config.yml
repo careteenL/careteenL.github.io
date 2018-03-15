@@ -77,6 +77,11 @@ theme: next
 stylus:
     compress: true
 
+# add post views
+leancloud_visitors:
+  enable: true
+  app_id: nVTlMWc54dSazbe7bhoiHnm0-gzGzoHsz
+  app_key: t6TvvIqvqopTfB0g0tcwEYEt
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
