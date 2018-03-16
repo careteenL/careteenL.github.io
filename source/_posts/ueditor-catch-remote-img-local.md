@@ -87,59 +87,54 @@ var ue = UE.getEditor('editor', {
 // ue.addListener 为ueditor封装的监听事件
 ue.addListener("afterpaste", function () {
     // 除去当前域名下、上次粘贴处理过的图片
-    var catcherLocalDomain = [imgDomain, "localhost", "xxx.xxx.cn"];
-    var remoteImages = [];
-    var imgs = UE.dom.domUtils.getElementsByTagName(ue.document, 'img');
+    let catcherLocalDomain = [imgDomain, "localhost", "xxx.xxx.cn"];
+    let imgs = UE.dom.domUtils.getElementsByTagName(ue.document, 'img');
 
-    var test = function (src, urls) {
-        if (src.indexOf(location.host) != -1 || /(^\.)|(^\/)/.test(src)) {
-            return true;
-        }
-        if (urls) {
-            for (var j = 0, url; url = urls[j++];) {
-                if (src.indexOf(url) !== -1) {
-                    return true;
-                }
+    let testInArray = function (src, urls) {
+        let flag = false;
+        urls.forEach((item, index) => {
+            if (src.indexOf(item) !== -1) {
+                flag = true;
             }
-        }
-        return false;
+        })
+        return flag;
     };
-    for (var i = 0, ci; i < imgs.length; i++) {
-        ci = imgs[i];
-        if (ci.getAttribute("word_img")) {
-            continue;
-        }
-        var src = ci.getAttribute("_src") || ci.src || "";
-        if (/^(https?|ftp):/i.test(src) && !test(src, catcherLocalDomain)) {
-            remoteImages.push(src);
+    let reesultImgs = [];
+    imgs.forEach((iit, idx) => {
+        let src = iit.getAttribute("_src") || ci.src || "";
+        if (testInArray(src, catcherLocalDomain)) {
+            // imgs.splice(idx, 1);
         } else {
-            // 以 imgs 为主 ，为 catcherLocalDomain 指定域名 则不处理
-            imgs.splice(i, 1);
+            reesultImgs.push(iit);
         }
-    }
-    if (imgs.length) {
+    })
+
+    if (reesultImgs.length) {
         that.urlChanged = false;
         // 一次更换一个图片url
-        var i, j, ci, cj, oldSrc, newSrc;
-        for (i = 0; i < imgs.length; i++) {
-            ci = imgs[i];
+        let i, ci, oldSrc;
+
+        for (i = 0; i < reesultImgs.length; i++) {
+            ci = reesultImgs[i];
             oldSrc = ci.getAttribute("_src") || ci.src || "";
             // 闭包处理
             (function(ci){
                 // 先展示 loading 图
-                var loadingUrl = 'https://3074a34158850.cdn.sohucs.com/bp_2b77f44f051047008f11cfa450d518cc';
+                let loadingUrl = 'https://3074a34158850.cdn.sohucs.com/bp_2b77f44f051047008f11cfa450d518cc';
                 // UE.dom.domUtils 为ueditor封装的操作dom工具
                 UE.dom.domUtils.setAttributes(ci, {
                     "src": loadingUrl,
                     "_src": loadingUrl
                 });
-                var opt = {
+
+                let opt = {
                     picUrl: oldSrc
                 };
                 // 后端接口
                 $$editorServer.catchImage(opt, function(r) {
                     if (r.code === 200) {
-                        var newSrc = imgDomain + r.data;
+                        let newSrc = curImgDomain + r.data;
+
                         UE.dom.domUtils.setAttributes(ci, {
                             "src": newSrc,
                             "_src": newSrc
@@ -154,8 +149,10 @@ ue.addListener("afterpaste", function () {
                     }
                 });
             })(ci)
+
         }
-    }
+
+    }    
 
 });
 ```
