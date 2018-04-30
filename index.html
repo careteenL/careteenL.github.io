@@ -194,7 +194,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            Startseite
           </a>
         </li>
       
@@ -214,7 +214,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -280,7 +280,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-30T21:43:20+08:00">
                 2018-04-30
@@ -301,7 +301,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -353,89 +353,16 @@
 
       
         
-          
-            <ul>
+          <ul>
 <li>webpack 构建流程</li>
-<li><p>插件机制（插件机制是整个webpack工具的骨架，而webpack本身也是基于这套机制构建的）</p>
-<ul>
-<li><p>如何编写一个插件</p>
-  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1、some-webpack-plugin.js 文件（独立模块）</span></span><br><span class="line"><span class="comment">// 2、模块对外暴露的 js 函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SomewebpackPlugin</span>(<span class="params">pluginOpions</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.options = pluginOptions;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 3、原型定义一个 apply 函数，并注入了 compiler 对象</span></span><br><span class="line">SomewebpackPlugin.prototype.apply = <span class="function"><span class="keyword">function</span> (<span class="params">compiler</span>) </span>&#123;</span><br><span class="line"><span class="comment">// 4、挂载 webpack 事件钩子（这里挂载的是 emit 事件）</span></span><br><span class="line">    compiler.plugin(<span class="string">'emit'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">compilation, callback</span>) </span>&#123;</span><br><span class="line">		<span class="comment">// ... 内部进行自定义的编译操作</span></span><br><span class="line">		<span class="comment">// 5、操作 compilation 对象的内部数据</span></span><br><span class="line">		<span class="built_in">console</span>.log(compilation);</span><br><span class="line">		<span class="comment">// 6、执行 callback 回调</span></span><br><span class="line">        callback();</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 暴露 js 函数</span></span><br><span class="line"><span class="built_in">module</span>.exports = SomewebpackPlugin;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>compiler对象和compilation对象</p>
-<ul>
-<li>compiler对象</li>
-<li>compilation对象</li>
-</ul>
-</li>
-<li>webpack插件机制（在每个生命周期点，webpack为运行所有注册的插件，并提供当前webpack编译状态信息）<ul>
-<li>tapable实例</li>
-<li>运行流程</li>
-<li>webpack相关事件钩子</li>
-<li>compiler事件钩子</li>
-<li>compilation事件钩子</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>文件管理</p>
-<ul>
-<li>编译ES6、TS</li>
-<li>编译LESS、SASS</li>
-<li>图片压缩和base64编码</li>
-<li>自动生成雪碧图</li>
-</ul>
-</li>
-<li><p>打包优化</p>
-<ul>
-<li>代码分隔和懒加载</li>
-<li><p>tree shaking</p>
-<ul>
-<li>什么是tree shaking</li>
-<li>支持tree shaking 的构建工具<ul>
-<li>rollup</li>
-<li>webpack 2 +</li>
-<li>closure compiler</li>
-</ul>
-</li>
-<li>tree shaking 原理<ul>
-<li>Dead code elimination</li>
-<li>rollup和webpack构建结果对比（未使用tree shaking）</li>
-<li>rollup和webpack构建结果对比（使用tree shaking）<ul>
-<li>对于有副作用的代码仍然无法做到较好的静态分析<ul>
-<li>副作用</li>
-</ul>
-</li>
-<li>closure compiler 打包结果完美（但是需要侵入式写代码，前端er是很反感的）</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>tree shaking 意义重大 （必须要做的）</li>
-<li><p>tree shaking 实践</p>
-<ul>
-<li>对组件库的引用做优化（基于antd对import的优化做修改，实现可配置引用其他组件库）</li>
-<li>CSS tree shaking</li>
-</ul>
-</li>
-<li><p>总结</p>
-<ul>
-<li>编码：避免编写带有副作用的代码（例如自执行函数里面使用外部变量）</li>
-<li>配置babel：开启babel的loose模式（根据自身项目判断是否真的要不可枚举class的属性）</li>
-<li>在开发js库时，使用rollup打包。<ul>
-<li>避免产生副作用代码，将功能函数或者组件打包成单独的文件或目录，以便用户通过目录加载（参照优秀的element-ui组件库）<br>-</li>
-</ul>
-</li>
-<li>把一件事做好，还是很难的呀</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>长缓存配置</li>
-</ul>
-</li>
-</ul>
-
-          
+<li><p>插件机制（插件机制是整个webpack工具的骨架，而webpack本身也是基于这套机制构建的）</p></li></ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/30/tree-shaking-practice/#more" rel="contents">
+              Weiterlesen &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -511,7 +438,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-09T09:41:11+08:00">
                 2018-04-09
@@ -532,7 +459,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -584,19 +511,15 @@
 
       
         
-          
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>存放在工作中所需要使用到的软件</p>
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>存放在工作中所需要使用到的软件</p>
 <h2 id="Adobe-Premiere-MAC-2018-破解"><a href="#Adobe-Premiere-MAC-2018-破解" class="headerlink" title="Adobe_Premiere_MAC_2018_破解"></a>Adobe_Premiere_MAC_2018_破解</h2><p>百度云盘下载地址<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">链接: https://pan.baidu.com/s/12AtYT5rDisV8LtMJF4erhw  </span><br><span class="line"></span><br><span class="line">密码: vgb0</span><br></pre></td></tr></table></figure></p>
-<p>注意</p>
-<ul>
-<li>安装Chrome插件GreenHub或其他翻墙方式（可选）实现翻墙</li>
-<li>安装之前需要安装creative cloud <a href="https://creative.adobe.com/zh-cn/products/download/creative-cloud?promoid=KSPDX" target="_blank" rel="noopener">https://creative.adobe.com/zh-cn/products/download/creative-cloud?promoid=KSPDX</a></li>
-<li>安装时需要断开网络连接</li>
-<li>打开注册机，因为还没有Premiere_2018版本，选择2017即可破解。</li>
-<li>参考：<a href="http://www.xue51.com/mac/1376.html" target="_blank" rel="noopener">http://www.xue51.com/mac/1376.html</a></li>
-</ul>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/09/soft-source/#more" rel="contents">
+              Weiterlesen &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -672,7 +595,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-08T11:05:52+08:00">
                 2018-04-08
@@ -803,7 +726,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-15T14:35:56+08:00">
                 2018-03-15
@@ -854,31 +777,17 @@
 
       
         
-          
-            <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h2><p>当用户在使用ueditor富文本编辑器时，可直接复制粘贴。但是粘贴内容含有图片时，图片地址域名是你复制内容所在的域名，此时最好将图片上传到自己公司CDN，有保障的使用。</p>
+          <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h2><p>当用户在使用ueditor富文本编辑器时，可直接复制粘贴。但是粘贴内容含有图片时，图片地址域名是你复制内容所在的域名，此时最好将图片上传到自己公司CDN，有保障的使用。</p>
 <p>此前由后端去匹配表单提交内容中含有的图片，先根据图片<code>&lt;img src=&quot;xxx&quot;&gt;</code>中的src将图片down下来，然后上传到自己的接口，最后将图片地址更换。</p>
 <p>这种只由后端处理的方式存在一定性能问题，当用户复制几十张甚至更多图片的时候，后端处理接口超时，导致失败。</p>
 <p>此时应该在前端去将远程图片实现本地化的替换，在提交ueditor内容后，省去了后端的替换过程（后端可以保留替换，以便处理漏网之鱼）</p>
-<h2 id="2-实现"><a href="#2-实现" class="headerlink" title="2.实现"></a>2.实现</h2><h3 id="远程抓取原理"><a href="#远程抓取原理" class="headerlink" title="远程抓取原理"></a>远程抓取原理</h3><p>图片远程抓取是指在插入本地域名之外的图片链接地址时，由服务器将这些外部图片抓取到本地服务器保存的一个功能。实现原理为在编辑器中向服务器发送包含所有 外域图片地址的ajax请求，然后由服务器在后端抓取保存后返回图片地址给编辑器，再由编辑器完成外域地址和本地地址的替换工作。</p>
-<h3 id="ueditor提供的API"><a href="#ueditor提供的API" class="headerlink" title="ueditor提供的API"></a>ueditor提供的API</h3><p>ueditor功能介绍： <a href="http://www.cnblogs.com/Zell-Dinch/articles/3917827.html" target="_blank" rel="noopener">http://www.cnblogs.com/Zell-Dinch/articles/3917827.html</a></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//是否开启远程图片抓取</span></span><br><span class="line">catchRemoteImageEnable:<span class="literal">true</span>,</span><br><span class="line"></span><br><span class="line"><span class="comment">//处理远程图片抓取的地址</span></span><br><span class="line">catcherUrl:URL +<span class="string">"server/submit/php/getRemoteImage.php"</span>,  </span><br><span class="line"></span><br><span class="line"><span class="comment">//提交到后台远程图片uri合集的表单名</span></span><br><span class="line">catchFieldName:<span class="string">"upFile"</span>,     </span><br><span class="line"></span><br><span class="line"><span class="comment">//图片修正地址，同imagePath</span></span><br><span class="line">catcherPath:fixedImagePath,</span><br><span class="line"></span><br><span class="line"><span class="comment">//本地顶级域名，当开启远程图片抓取时，除此之外的所有其它域名下的</span></span><br><span class="line"><span class="comment">//图片都将被抓取到本地                                   </span></span><br><span class="line">localDomain:[<span class="string">"baidu.com"</span>,<span class="string">"10.81.2.114"</span>],</span><br></pre></td></tr></table></figure>
-<p>但是在<code>ueditor.config.js</code>中像上面配置，不管用。</p>
-<p>在network中 并没有我设置的catcherUrl<br><img src="/2018/03/15/ueditor-catch-remote-img-local/ueditor_1.png" alt="ueditor_1"></p>
-<p>而且catchFiledName 设置的项在 接口字段中也没生效<br><img src="/2018/03/15/ueditor-catch-remote-img-local/ueditor_2.png" alt="ueditor_2"></p>
-<h3 id="ueditor源码"><a href="#ueditor源码" class="headerlink" title="ueditor源码"></a>ueditor源码</h3><p>在<code>ueditor.all.js</code>中，可看到<code>catchRemoteImageEnable</code>开关。</p>
-<p><img src="/2018/03/15/ueditor-catch-remote-img-local/ueditor_3.png" alt="ueditor_3"></p>
-<p>实现的思路如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. 监听粘贴事件</span><br><span class="line">2. 取到粘贴内容中的图片，组成一个图片数组</span><br><span class="line">3. 需要后端有对应的接口将 远程图片字符数组转换为自己公司的</span><br><span class="line">4. 将返回的图片地址字符做替换</span><br></pre></td></tr></table></figure></p>
-<p>以上是将粘贴的所有图片一次性提交替换，也可能存在超时的情况</p>
-<p>所以希望能一张图片一张图片的替换，而且有loading的效果，此时，就自己撸一下</p>
-<h3 id="手撸"><a href="#手撸" class="headerlink" title="手撸"></a>手撸</h3><p>实现思路和ueditor源码实现差不多，主要是一张一张图片替换</p>
-<p>在你初始化定义<code>ueditor</code>的文件中进行操作</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> $$editorServer <span class="keyword">from</span> <span class="string">'server/editor'</span></span><br><span class="line"><span class="keyword">var</span> imgDomain = <span class="string">'t.img-xxx.cn'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> ue = UE.getEditor(<span class="string">'editor'</span>, &#123;</span><br><span class="line">    <span class="comment">// 设置是否抓取远程图片</span></span><br><span class="line">    catchRemoteImageEnable: <span class="literal">false</span></span><br><span class="line">    ...</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 监听粘贴</span></span><br><span class="line"><span class="comment">// ue.addListener 为ueditor封装的监听事件</span></span><br><span class="line">ue.addListener(<span class="string">"afterpaste"</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 除去当前域名下、上次粘贴处理过的图片</span></span><br><span class="line">    <span class="keyword">let</span> catcherLocalDomain = [imgDomain, <span class="string">"localhost"</span>, <span class="string">"xxx.xxx.cn"</span>];</span><br><span class="line">    <span class="keyword">let</span> imgs = UE.dom.domUtils.getElementsByTagName(ue.document, <span class="string">'img'</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> testInArray = <span class="function"><span class="keyword">function</span> (<span class="params">src, urls</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">let</span> flag = <span class="literal">false</span>;</span><br><span class="line">        urls.forEach(<span class="function">(<span class="params">item, index</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (src.indexOf(item) !== <span class="number">-1</span>) &#123;</span><br><span class="line">                flag = <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="keyword">return</span> flag;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">let</span> reesultImgs = [];</span><br><span class="line">    imgs.forEach(<span class="function">(<span class="params">iit, idx</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> src = iit.getAttribute(<span class="string">"_src"</span>) || ci.src || <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">if</span> (testInArray(src, catcherLocalDomain)) &#123;</span><br><span class="line">            <span class="comment">// imgs.splice(idx, 1);</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            reesultImgs.push(iit);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (reesultImgs.length) &#123;</span><br><span class="line">        that.urlChanged = <span class="literal">false</span>;</span><br><span class="line">        <span class="comment">// 一次更换一个图片url</span></span><br><span class="line">        <span class="keyword">let</span> i, ci, oldSrc;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; reesultImgs.length; i++) &#123;</span><br><span class="line">            ci = reesultImgs[i];</span><br><span class="line">            oldSrc = ci.getAttribute(<span class="string">"_src"</span>) || ci.src || <span class="string">""</span>;</span><br><span class="line">            <span class="comment">// 闭包处理</span></span><br><span class="line">            (<span class="function"><span class="keyword">function</span>(<span class="params">ci</span>)</span>&#123;</span><br><span class="line">                <span class="comment">// 先展示 loading 图</span></span><br><span class="line">                <span class="keyword">let</span> loadingUrl = <span class="string">'https://3074a34158850.cdn.sohucs.com/bp_2b77f44f051047008f11cfa450d518cc'</span>;</span><br><span class="line">                <span class="comment">// UE.dom.domUtils 为ueditor封装的操作dom工具</span></span><br><span class="line">                UE.dom.domUtils.setAttributes(ci, &#123;</span><br><span class="line">                    <span class="string">"src"</span>: loadingUrl,</span><br><span class="line">                    <span class="string">"_src"</span>: loadingUrl</span><br><span class="line">                &#125;);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">let</span> opt = &#123;</span><br><span class="line">                    picUrl: oldSrc</span><br><span class="line">                &#125;;</span><br><span class="line">                <span class="comment">// 后端接口</span></span><br><span class="line">                $$editorServer.catchImage(opt, <span class="function"><span class="keyword">function</span>(<span class="params">r</span>) </span>&#123;</span><br><span class="line">                    <span class="keyword">if</span> (r.code === <span class="number">200</span>) &#123;</span><br><span class="line">                        <span class="keyword">let</span> newSrc = curImgDomain + r.data;</span><br><span class="line"></span><br><span class="line">                        UE.dom.domUtils.setAttributes(ci, &#123;</span><br><span class="line">                            <span class="string">"src"</span>: newSrc,</span><br><span class="line">                            <span class="string">"_src"</span>: newSrc</span><br><span class="line">                        &#125;);</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="built_in">console</span>.error(<span class="string">'error:'</span> + r.message);</span><br><span class="line">                        <span class="comment">// 若有图片没处理成功 仍然上传老地址 让后端处理，提高容错率，保证功能正常使用</span></span><br><span class="line">                        UE.dom.domUtils.setAttributes(ci, &#123;</span><br><span class="line">                            <span class="string">"src"</span>: oldSrc,</span><br><span class="line">                            <span class="string">"_src"</span>: oldSrc</span><br><span class="line">                        &#125;);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;)(ci)</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;    </span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>server/editor.js</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> ajax <span class="keyword">from</span> <span class="string">'./fetch'</span></span><br><span class="line"><span class="keyword">import</span> config <span class="keyword">from</span> <span class="string">'./config'</span></span><br><span class="line"><span class="keyword">let</span> model = &#123;&#125;;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @desc 非本域图片 替换成 本域图片</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">model.catchImage = <span class="function"><span class="keyword">function</span> (<span class="params">params, cb</span>) </span>&#123;</span><br><span class="line">    ajax(&#123;</span><br><span class="line">        url: config.mpDomain + <span class="string">'/common/imageUrl/upload'</span>,</span><br><span class="line">        type: <span class="string">'POST'</span>,</span><br><span class="line">        data: params,</span><br><span class="line">        headers: &#123;</span><br><span class="line">            <span class="string">'Content-Type'</span>:<span class="string">'application/x-www-form-urlencoded'</span></span><br><span class="line">        &#125;,</span><br><span class="line">        withCredentials: <span class="literal">true</span>,</span><br><span class="line">        success: <span class="function"><span class="keyword">function</span> (<span class="params">res</span>) </span>&#123;</span><br><span class="line">            cb &amp;&amp; cb(res);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> model;</span><br></pre></td></tr></table></figure>
-<p><code>fetch.js</code> 是对axios的封装，可参考： <a href="https://github.com/careteenL/vue-multi-page/blob/master/src/server/fetch.js" target="_blank" rel="noopener">https://github.com/careteenL/vue-multi-page/blob/master/src/server/fetch.js</a><br><code>config.js</code> 区分本地、测试、线上环境，可参考： <a href="https://github.com/careteenL/vue-multi-page/blob/master/src/config.js" target="_blank" rel="noopener">https://github.com/careteenL/vue-multi-page/blob/master/src/config.js</a></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>她那时候还太年轻，不知道所有命运赠送的礼物，早已在暗中标好了价格。</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/15/ueditor-catch-remote-img-local/#more" rel="contents">
+              Weiterlesen &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -954,7 +863,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-27T10:35:30+08:00">
                 2018-02-27
@@ -975,7 +884,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1027,17 +936,15 @@
 
       
         
-          
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在日常工作跨模块开发时，很常见的一个场景：不同模块间的事件通信。</p>
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在日常工作跨模块开发时，很常见的一个场景：不同模块间的事件通信。</p>
 <p>以下给出ES5、ES6两种实现方式。</p>
-<h2 id="ES5实现"><a href="#ES5实现" class="headerlink" title="ES5实现"></a>ES5实现</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 挂载到全局</span></span><br><span class="line"><span class="keyword">var</span> events = &#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> Events = &#123;</span><br><span class="line">    on: <span class="function"><span class="keyword">function</span> (<span class="params">key, fn</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> fn !== <span class="string">'function'</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        events[key] = events[key] || [];</span><br><span class="line">        events[key].push(fn);</span><br><span class="line">    &#125;,</span><br><span class="line">    once: <span class="function"><span class="keyword">function</span> (<span class="params">key, fn</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> fn !== <span class="string">'function'</span> || (fn.once &amp;&amp; fn.hasExeced)) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        fn.once = <span class="literal">true</span>;</span><br><span class="line">        fn.hasExeced = <span class="literal">false</span>;</span><br><span class="line">        events[key] = events[key] || [];</span><br><span class="line">        events[key].push(fn);</span><br><span class="line">    &#125;,</span><br><span class="line">    trigger: <span class="function"><span class="keyword">function</span> (<span class="params">key</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> args = [].slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">var</span> fnList = events[key] || [];</span><br><span class="line">        fnList.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">item</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">typeof</span> item === <span class="string">'function'</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (item.once &amp;&amp; item.hasExeced) &#123;</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (item.once &amp;&amp; !item.hasExeced) &#123;</span><br><span class="line">                    item.hasExeced = <span class="literal">true</span>;</span><br><span class="line">                    item.apply(<span class="built_in">window</span>, args);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    item.apply(<span class="built_in">window</span>, args);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = Events;</span><br></pre></td></tr></table></figure>
-<h2 id="ES6实现"><a href="#ES6实现" class="headerlink" title="ES6实现"></a>ES6实现</h2><h3 id="订阅者"><a href="#订阅者" class="headerlink" title="订阅者"></a>订阅者</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 工具函数：是否为函数</span></span><br><span class="line"><span class="keyword">let</span> isFunction = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">typeof</span> obj == <span class="string">'function'</span> || <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EventEmitter</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Map 存放不同事件对应的观察者的处理函数</span></span><br><span class="line">    <span class="keyword">constructor</span>()&#123;</span><br><span class="line">        <span class="keyword">this</span>.listeners = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 绑定事件</span></span><br><span class="line">    on(label, callback) &#123;</span><br><span class="line">        <span class="keyword">this</span>.listeners.has(label) || <span class="keyword">this</span>.listeners.set(label, []);</span><br><span class="line">        <span class="keyword">this</span>.listeners.get(label).push(callback);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 移除事件</span></span><br><span class="line">    off(label, callback) &#123;</span><br><span class="line">        <span class="keyword">let</span> listenerArr = <span class="keyword">this</span>.listeners.get(label);</span><br><span class="line">        <span class="keyword">let</span> targetIndex;</span><br><span class="line">        <span class="keyword">if</span> (listenerArr &amp;&amp; listenerArr.length) &#123;</span><br><span class="line">            targetIndex = listenerArr.reduce(<span class="function">(<span class="params">i, listener, index</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> (isFunction(listener) &amp;&amp; listener === callback) ? i = index : i;</span><br><span class="line">            &#125;, <span class="number">-1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (targetIndex &gt; <span class="number">-1</span>) &#123;</span><br><span class="line">            listenerArr.splice(targetIndex, <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">this</span>.listeners.set(label, listenerArr);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 触发事件</span></span><br><span class="line">    emit(label, ...args) &#123;</span><br><span class="line">        <span class="keyword">let</span> listenerArr = <span class="keyword">this</span>.listeners.get(label);</span><br><span class="line">        <span class="keyword">if</span> (listenerArr &amp;&amp; listenerArr.length) &#123;</span><br><span class="line">            listenerArr.forEach(<span class="function">(<span class="params">listener</span>) =&gt;</span> &#123;</span><br><span class="line">                listener(...args);</span><br><span class="line">            &#125;)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="观察者"><a href="#观察者" class="headerlink" title="观察者"></a>观察者</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Observer</span> </span>&#123;</span><br><span class="line">    <span class="comment">// subject 保存订阅对象</span></span><br><span class="line">    <span class="keyword">constructor</span>(id, subject) &#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">        <span class="keyword">this</span>.subject = subject;</span><br><span class="line">    &#125;</span><br><span class="line">    on(label, callback) &#123;</span><br><span class="line">        <span class="keyword">this</span>.subject.on(label,callback);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> publisher = <span class="keyword">new</span> EventEmitter();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实例两个观察者</span></span><br><span class="line"><span class="keyword">let</span> [observer1, observer2] = [</span><br><span class="line">    <span class="keyword">new</span> Observer(<span class="number">1</span>, publisher),</span><br><span class="line">    <span class="keyword">new</span> Observer(<span class="number">2</span>, publisher)</span><br><span class="line">];</span><br><span class="line"><span class="comment">// 绑定事件</span></span><br><span class="line">observer1.on(<span class="string">'careteen'</span>, (data) =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;observer1.id&#125;</span> observered data:`</span>, data);</span><br><span class="line">&#125;);</span><br><span class="line">observer2.on(<span class="string">'lanlan'</span>, (data) =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;observer2.id&#125;</span> observered data:`</span>, data);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 触发事件</span></span><br><span class="line">publisher.emit(<span class="string">'careteen'</span>, &#123;<span class="attr">x</span>:<span class="string">'yaoxiugai'</span>&#125;); <span class="comment">// 1 observered data: &#123;x:'yaoxiugai'&#125;</span></span><br><span class="line">publisher.emit(<span class="string">'lanlan'</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]); <span class="comment">// 2 observered data: [1, 2, 3]</span></span><br></pre></td></tr></table></figure>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>每一根线都有生命，经年生长，日渐成熟，最终布料才能呈现它曾深藏不露的美丽。  – 发酵自己吧</p>
-<p>参考：Implementing EventEmitter in ES6 <a href="http://www.datchley.name/es6-eventemitter/" target="_blank" rel="noopener">http://www.datchley.name/es6-eventemitter/</a></p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/02/27/eventEmittter/#more" rel="contents">
+              Weiterlesen &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1113,7 +1020,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-26T11:33:27+08:00">
                 2018-02-26
@@ -1134,7 +1041,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1186,37 +1093,16 @@
 
       
         
-          
-            <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1.前言"></a>1.前言</h2><p>使用vue-cli脚手架可快速搭建一套单页应用并进行开发，这往往适用于B端项目，访问url、路由等由前端控制，且不需要SEO。</p>
+          <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1.前言"></a>1.前言</h2><p>使用vue-cli脚手架可快速搭建一套单页应用并进行开发，这往往适用于B端项目，访问url、路由等由前端控制，且不需要SEO。</p>
 <p>工作环境中可能会有一个场景：需要快速开发出多个交互不多且独立的活动页。此时，应该将其独立成一个新项目，便于后期维护。一个能让我们快速进入开发的脚手架就显得尤为重要。</p>
 <p>脚手架地址： <a href="https://github.com/careteenL/vue-multi-page" target="_blank" rel="noopener">https://github.com/careteenL/vue-multi-page</a></p>
-<h2 id="2-安装vue-cli"><a href="#2-安装vue-cli" class="headerlink" title="2. 安装vue-cli"></a>2. 安装vue-cli</h2><p>前提条件安装 <code>node</code> ，Windows用户前往官网 <a href="https://nodejs.org/en/" target="_blank" rel="noopener">https://nodejs.org/en/</a> 下载并傻瓜式安装；Mac用户 iTerm 有自带。</p>
-<p>2.1 安装淘宝镜像源<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure></p>
-<p>2.2 安装<code>webpack</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install webpack -g</span><br></pre></td></tr></table></figure></p>
-<p>2.3 安装<code>vue-cli</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install vue-cli -g</span><br></pre></td></tr></table></figure></p>
-<p>安装完成后查看版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue -V</span><br></pre></td></tr></table></figure></p>
-<p><img src="/2018/02/26/vue-muti-pages/vue-cli-version.png" alt="vue-cli-version"></p>
-<p>2.4 初始化生成项目模板（my_project为项目名称）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue init webpack my_project</span><br></pre></td></tr></table></figure></p>
-<p><img src="/2018/02/26/vue-muti-pages/vue-cli-install.png" alt="vue-cli-install"></p>
-<p>2.5 安装依赖<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd my_project</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure></p>
-<p>2.6 启动项目<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run dev</span><br></pre></td></tr></table></figure></p>
-<h2 id="3-修改webpack配置"><a href="#3-修改webpack配置" class="headerlink" title="3. 修改webpack配置"></a>3. 修改webpack配置</h2><p>3.1 修改 <code>build/utils.js</code>，末尾新增以下代码<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// glob是webpack安装时依赖的一个第三方模块，还模块允许你使用 *等符号, 例如lib/*.js就是获取lib文件夹下的所有js后缀名的文件</span></span><br><span class="line"><span class="keyword">var</span> glob = <span class="built_in">require</span>(<span class="string">'glob'</span>)</span><br><span class="line">    <span class="comment">// 页面模板</span></span><br><span class="line"><span class="keyword">var</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">'html-webpack-plugin'</span>)</span><br><span class="line">    <span class="comment">// 取得相应的页面路径，因为之前的配置，所以是src文件夹下的page文件夹</span></span><br><span class="line"><span class="keyword">var</span> PAGE_PATH = path.resolve(__dirname, <span class="string">'../src/page'</span>)</span><br><span class="line">    <span class="comment">// 用于做相应的merge处理</span></span><br><span class="line"><span class="keyword">var</span> merge = <span class="built_in">require</span>(<span class="string">'webpack-merge'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//多入口配置</span></span><br><span class="line"><span class="comment">// 通过glob模块读取pages文件夹下的所有对应文件夹下的js后缀文件，如果该文件存在</span></span><br><span class="line"><span class="comment">// 那么就作为入口处理</span></span><br><span class="line">exports.entries = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> entryFiles = glob.sync(PAGE_PATH + <span class="string">'/**/*.js'</span>)</span><br><span class="line">    <span class="keyword">var</span> map = &#123;&#125;</span><br><span class="line">    entryFiles.forEach(<span class="function">(<span class="params">filePath</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> filename = filePath.substring(filePath.lastIndexOf(<span class="string">'\/'</span>) + <span class="number">1</span>, filePath.lastIndexOf(<span class="string">'.'</span>))</span><br><span class="line">        map[filename] = filePath</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> map</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//多页面输出配置</span></span><br><span class="line"><span class="comment">// 与上面的多页面入口配置相同，读取page文件夹下的对应的html后缀文件，然后放入数组中</span></span><br><span class="line">exports.htmlPlugin = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> entryHtml = glob.sync(PAGE_PATH + <span class="string">'/**/*.html'</span>)</span><br><span class="line">    <span class="keyword">let</span> arr = []</span><br><span class="line">    entryHtml.forEach(<span class="function">(<span class="params">filePath</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> filename = filePath.substring(filePath.lastIndexOf(<span class="string">'\/'</span>) + <span class="number">1</span>, filePath.lastIndexOf(<span class="string">'.'</span>))</span><br><span class="line">        <span class="keyword">let</span> conf = &#123;</span><br><span class="line">            <span class="comment">// 模板来源</span></span><br><span class="line">            template: filePath,</span><br><span class="line">            <span class="comment">// 文件名称</span></span><br><span class="line">            filename: <span class="string">'vm/'</span> + filename + <span class="string">'.html'</span>,</span><br><span class="line">            <span class="comment">// 页面模板需要加对应的js脚本，如果不加这行则每个页面都会引入所有的js脚本</span></span><br><span class="line">            chunks: [<span class="string">'manifest'</span>, <span class="string">'vendor'</span>, filename],</span><br><span class="line">            inject: <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (process.env.NODE_ENV === <span class="string">'production'</span>) &#123;</span><br><span class="line">            conf = merge(conf, &#123;</span><br><span class="line">                minify: &#123;</span><br><span class="line">                    removeComments: <span class="literal">true</span>,</span><br><span class="line">                    collapseWhitespace: <span class="literal">true</span>,</span><br><span class="line">                    removeAttributeQuotes: <span class="literal">true</span></span><br><span class="line">                &#125;,</span><br><span class="line">                chunksSortMode: <span class="string">'dependency'</span></span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">        arr.push(<span class="keyword">new</span> HtmlWebpackPlugin(conf))</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> arr</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>3.2 修改 <code>build/webpack.dev.config.js</code>，plugins中注释红框内容，新增绿框内容。<br><img src="/2018/02/26/vue-muti-pages/vue-webpack-1.png" alt="vue-webpack-1"><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">].concat(utils.htmlPlugin())</span><br></pre></td></tr></table></figure></p>
-<p>3.3 修改<code>build/webpack.prod.config.js</code>，plugins中注释红框内容，新增绿框内容。<br><img src="/2018/02/26/vue-muti-pages/vue-webpack-2.png" alt="vue-webpack-2"><br><img src="/2018/02/26/vue-muti-pages/vue-webpack-3.png" alt="vue-webpack-3"><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">].concat(utils.htmlPlugin())</span><br></pre></td></tr></table></figure></p>
-<p>3.4 修改<code>build/webpack.base.config.js</code>，entry为<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">entry: <span class="built_in">Object</span>.assign(&#123;</span><br><span class="line">    <span class="string">'bundle'</span>: [</span><br><span class="line">        <span class="string">'babel-polyfill'</span></span><br><span class="line">    ]</span><br><span class="line">&#125;, utils.entries()),</span><br></pre></td></tr></table></figure></p>
-<p>3.5 新增<code>config/mutil-page-config.js</code>，集中控制<code>url</code>、<code>port</code>、<code>proxyTable</code>(接口映射)、<code>pageMap</code>(页面访问配置)<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="string">"url"</span>: <span class="string">"127.0.0.1"</span>,</span><br><span class="line">    <span class="string">"port"</span>: <span class="string">"2333"</span>,</span><br><span class="line">    <span class="string">"proxyTable"</span>: &#123;</span><br><span class="line">        <span class="string">"/xxx"</span>: <span class="string">"http://xxx.xxx.cn/xxx"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"pageMap"</span>: &#123;</span><br><span class="line">        <span class="string">"testPage"</span>: &#123;</span><br><span class="line">            <span class="string">"aliasPage"</span>: <span class="string">"testPage"</span>,</span><br><span class="line">            <span class="string">"realPage"</span>: <span class="string">"testPage.html"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">新增<span class="string">`config/proxy.js`</span></span><br></pre></td></tr></table></figure></p>
-<p><img src="/2018/02/26/vue-muti-pages/vue-webpack-4.png" alt="vue-webpack-4"></p>
-<p>修改<code>config/index.js</code>，配置dev下host、port<br><img src="/2018/02/26/vue-muti-pages/vue-webpack-5.png" alt="vue-webpack-5"></p>
-<p>修改 <code>build/webpack.dev.config.js</code>，<br>devServer 中新增 proxy<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">proxy: config.dev.proxyTable,</span><br></pre></td></tr></table></figure></p>
-<p>新增以下代码，控制dev下前端路由<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mutilPageConf = <span class="built_in">require</span>(<span class="string">'../config/mutil-page-config.js'</span>)</span><br><span class="line"><span class="comment">// dev-server 下 前端路由</span></span><br><span class="line"><span class="keyword">let</span> pageUrlRules = [];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> page <span class="keyword">in</span> mutilPageConf.pageMap) &#123;</span><br><span class="line">    <span class="keyword">if</span> (mutilPageConf.pageMap.hasOwnProperty(page)) &#123;</span><br><span class="line">        <span class="keyword">let</span> pageItem = mutilPageConf.pageMap[page];</span><br><span class="line">        pageUrlRules.push(&#123;</span><br><span class="line">            <span class="keyword">from</span>: <span class="keyword">new</span> <span class="built_in">RegExp</span>(pageItem.aliasPage),</span><br><span class="line">            to: path.posix.join(config.dev.assetsPublicPath, <span class="string">'vm/'</span> + pageItem.realPage)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="4-新增页面"><a href="#4-新增页面" class="headerlink" title="4. 新增页面"></a>4. 新增页面</h2><p>运行下面脚本可在page目录下生成以下几个文件。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node add-page.js testPage</span><br></pre></td></tr></table></figure></p>
-<p><img src="/2018/02/26/vue-muti-pages/vue-add-page-1.png" alt="vue-add-page-1"></p>
-<h2 id="5-封装请求库（axios）"><a href="#5-封装请求库（axios）" class="headerlink" title="5. 封装请求库（axios）"></a>5. 封装请求库（axios）</h2><p>在server目录下新增fetch.js<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">'axios'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @desc 封装axios，减少学习成本，参数基本跟jq ajax一致</span></span><br><span class="line"><span class="comment"> * @param &#123;String&#125; type [default: GET]                     请求的类型</span></span><br><span class="line"><span class="comment"> * @param &#123;String&#125; url			                           请求地址</span></span><br><span class="line"><span class="comment"> * @param &#123;String&#125; time  [default: 10s]			           超时时间</span></span><br><span class="line"><span class="comment"> * @param &#123;Object&#125; data		               	               请求参数</span></span><br><span class="line"><span class="comment"> * @param &#123;Boolean&#125; withCredentials  [default: false]	   是否携带cookie</span></span><br><span class="line"><span class="comment"> * @param &#123;String&#125; dataType         		               预期服务器返回的数据类型，xml html json ...</span></span><br><span class="line"><span class="comment"> * @param &#123;Object&#125; headers          		               自定义请求headers</span></span><br><span class="line"><span class="comment"> * @param &#123;Function&#125; success            	               请求成功后，这里会有两个参数,服务器返回数据，返回状态，[data, res]</span></span><br><span class="line"><span class="comment"> * @param &#123;Function&#125; error		                           发送请求前</span></span><br><span class="line"><span class="comment"> * @return &#123;Promise&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> ajax = <span class="function"><span class="keyword">function</span> (<span class="params">config</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> configs = config || &#123;&#125;;</span><br><span class="line">    <span class="keyword">if</span> (!configs.url) &#123;</span><br><span class="line">        <span class="built_in">console</span>.error(<span class="string">'请填写接口地址'</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    axios(&#123;</span><br><span class="line">        method: configs.type || <span class="string">'get'</span>,</span><br><span class="line">        url: configs.url,</span><br><span class="line">        params: configs.data || &#123;&#125;,</span><br><span class="line">        header: configs.headers || &#123;</span><br><span class="line">            <span class="string">'Content-Type'</span>:<span class="string">'application/x-www-form-urlencoded'</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">// baseURL: '',</span></span><br><span class="line">        withCredentials: configs.withCredentials || <span class="literal">false</span>,</span><br><span class="line">        timeout: configs.time || <span class="number">10</span> * <span class="number">1000</span>,</span><br><span class="line">        responseType: configs.dataType || <span class="string">'json'</span></span><br><span class="line">    &#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="number">200</span> == res.status) &#123;</span><br><span class="line">            <span class="keyword">if</span> (configs.success) &#123;</span><br><span class="line">                configs.success(res.data, res);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (data.error) &#123;</span><br><span class="line">                configs.error(error)</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="built_in">console</span>.error(<span class="string">'[timeout] 访问人数过多，请稍后重试'</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;).catch(<span class="function"><span class="keyword">function</span>(<span class="params">error</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.error(error);</span><br><span class="line">        <span class="keyword">if</span> (configs.error) &#123;</span><br><span class="line">            configs.error(error);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">console</span>.error(<span class="string">'[timeout] 访问人数过多，请稍后重试'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> ajax;</span><br></pre></td></tr></table></figure></p>
-<h2 id="6-区分local、dev、test、prod环境"><a href="#6-区分local、dev、test、prod环境" class="headerlink" title="6. 区分local、dev、test、prod环境"></a>6. 区分local、dev、test、prod环境</h2><p>新增<code>src/config.js</code><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @desc 全局域名等变量维护</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> byProxy = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">var</span> mainDomain;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 本地开发走proxy */</span></span><br><span class="line"><span class="keyword">if</span> (<span class="regexp">/\d+\.\d+\.\d+\.\d+/</span>.test(location.host)) &#123;</span><br><span class="line">    byProxy = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 测试线上等环境 */</span></span><br><span class="line"><span class="keyword">if</span> (!byProxy) &#123;</span><br><span class="line">    <span class="keyword">var</span> hostArr = location.hostname.split(<span class="string">'.'</span>);</span><br><span class="line">    mainDomain = <span class="string">"."</span> + hostArr[hostArr.length - <span class="number">2</span>] + <span class="string">'.'</span> + hostArr[hostArr.length - <span class="number">1</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    mainDomain: byProxy ? <span class="string">"127.0.0.1"</span> : mainDomain,</span><br><span class="line"></span><br><span class="line">    testDomain: byProxy ? <span class="string">""</span> : <span class="string">"//test"</span> + mainDomain</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="7-CSS工具库"><a href="#7-CSS工具库" class="headerlink" title="7. CSS工具库"></a>7. CSS工具库</h2><p>基于Sass的CSS基础库：<a href="https://github.com/careteenL/common-ui" target="_blank" rel="noopener">https://github.com/careteenL/common-ui</a></p>
-<h2 id="8-JS工具库"><a href="#8-JS工具库" class="headerlink" title="8. JS工具库"></a>8. JS工具库</h2><p>常用js函数： <a href="https://github.com/careteenL/webFEDeveloper/blob/master/Util/util.js" target="_blank" rel="noopener">https://github.com/careteenL/webFEDeveloper/blob/master/Util/util.js</a></p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/02/26/vue-muti-pages/#more" rel="contents">
+              Weiterlesen &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1292,7 +1178,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-24T15:53:08+08:00">
                 2018-02-24
@@ -1313,7 +1199,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1365,8 +1251,7 @@
 
       
         
-          
-            <h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><h3 id="npm弊端"><a href="#npm弊端" class="headerlink" title="npm弊端"></a>npm弊端</h3><blockquote>
+          <h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><h3 id="npm弊端"><a href="#npm弊端" class="headerlink" title="npm弊端"></a>npm弊端</h3><blockquote>
 <p> 由于npm的源在国外，npm install 时经常出现模块和插件安装失败。<br> 特别是node-sass，此时解决方案一般为删掉 node_modules 目录。</p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rm -rf node_modules</span><br></pre></td></tr></table></figure>
@@ -1374,25 +1259,13 @@
 <p>然后再次重新安装所有依赖</p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>但是如此反复失败后，你会变得很没有脾气。</p>
-</blockquote>
-<h3 id="使用cnpm"><a href="#使用cnpm" class="headerlink" title="使用cnpm"></a>使用cnpm</h3><blockquote>
-<p>cnpm 官方给出的解释是 npm client for China mirror of npm （npm的中国镜像客户端）。这个镜像源是淘宝做的。</p>
-</blockquote>
-<blockquote>
-<p>安装方法</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>使用方式和npm一毛一样</p>
-</blockquote>
-<ul>
-<li>在此由衷的感谢淘宝前端团队为国内前端开发者做出的巨大贡献</li>
-</ul>
-<h2 id="20180108（宜较真）："><a href="#20180108（宜较真）：" class="headerlink" title="20180108（宜较真）："></a>20180108（宜较真）：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">我数过</span><br><span class="line">鸽子每分钟会咕咕叫六十声</span><br><span class="line">            --《托斯卡纳艳阳下》弗朗西斯•梅斯</span><br></pre></td></tr></table></figure>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/02/24/cnpm/#more" rel="contents">
+              Weiterlesen &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1473,7 +1346,7 @@
                 <a href="/archives/">
               
                   <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
             
@@ -1484,7 +1357,7 @@
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
                   <span class="site-state-item-count">5</span>
-                  <span class="site-state-item-name">categories</span>
+                  <span class="site-state-item-name">Kategorien</span>
                 </a>
               </div>
             
@@ -1495,7 +1368,7 @@
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
                   <span class="site-state-item-count">13</span>
-                  <span class="site-state-item-name">tags</span>
+                  <span class="site-state-item-name">Tags</span>
                 </a>
               </div>
             
@@ -1543,7 +1416,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 
