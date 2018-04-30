@@ -251,6 +251,237 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/30/tree-shaking-practice/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Careteen Wang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Careteen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/30/tree-shaking-practice/" itemprop="url">tree-shaking-practice</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-30T21:43:20+08:00">
+                2018-04-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/webpack/" itemprop="url" rel="index">
+                    <span itemprop="name">webpack</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/04/30/tree-shaking-practice/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/04/30/tree-shaking-practice/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>webpack 构建流程</li>
+<li><p>插件机制（插件机制是整个webpack工具的骨架，而webpack本身也是基于这套机制构建的）</p>
+<ul>
+<li><p>如何编写一个插件</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1、some-webpack-plugin.js 文件（独立模块）</span></span><br><span class="line"><span class="comment">// 2、模块对外暴露的 js 函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SomewebpackPlugin</span>(<span class="params">pluginOpions</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.options = pluginOptions;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 3、原型定义一个 apply 函数，并注入了 compiler 对象</span></span><br><span class="line">SomewebpackPlugin.prototype.apply = <span class="function"><span class="keyword">function</span> (<span class="params">compiler</span>) </span>&#123;</span><br><span class="line"><span class="comment">// 4、挂载 webpack 事件钩子（这里挂载的是 emit 事件）</span></span><br><span class="line">    compiler.plugin(<span class="string">'emit'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">compilation, callback</span>) </span>&#123;</span><br><span class="line">		<span class="comment">// ... 内部进行自定义的编译操作</span></span><br><span class="line">		<span class="comment">// 5、操作 compilation 对象的内部数据</span></span><br><span class="line">		<span class="built_in">console</span>.log(compilation);</span><br><span class="line">		<span class="comment">// 6、执行 callback 回调</span></span><br><span class="line">        callback();</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 暴露 js 函数</span></span><br><span class="line"><span class="built_in">module</span>.exports = SomewebpackPlugin;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>compiler对象和compilation对象</p>
+<ul>
+<li>compiler对象</li>
+<li>compilation对象</li>
+</ul>
+</li>
+<li>webpack插件机制（在每个生命周期点，webpack为运行所有注册的插件，并提供当前webpack编译状态信息）<ul>
+<li>tapable实例</li>
+<li>运行流程</li>
+<li>webpack相关事件钩子</li>
+<li>compiler事件钩子</li>
+<li>compilation事件钩子</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>文件管理</p>
+<ul>
+<li>编译ES6、TS</li>
+<li>编译LESS、SASS</li>
+<li>图片压缩和base64编码</li>
+<li>自动生成雪碧图</li>
+</ul>
+</li>
+<li><p>打包优化</p>
+<ul>
+<li>代码分隔和懒加载</li>
+<li><p>tree shaking</p>
+<ul>
+<li>什么是tree shaking</li>
+<li>支持tree shaking 的构建工具<ul>
+<li>rollup</li>
+<li>webpack 2 +</li>
+<li>closure compiler</li>
+</ul>
+</li>
+<li>tree shaking 原理<ul>
+<li>Dead code elimination</li>
+<li>rollup和webpack构建结果对比（未使用tree shaking）</li>
+<li>rollup和webpack构建结果对比（使用tree shaking）<ul>
+<li>对于有副作用的代码仍然无法做到较好的静态分析<ul>
+<li>副作用</li>
+</ul>
+</li>
+<li>closure compiler 打包结果完美（但是需要侵入式写代码，前端er是很反感的）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>tree shaking 意义重大 （必须要做的）</li>
+<li><p>tree shaking 实践</p>
+<ul>
+<li>对组件库的引用做优化（基于antd对import的优化做修改，实现可配置引用其他组件库）</li>
+<li>CSS tree shaking</li>
+</ul>
+</li>
+<li><p>总结</p>
+<ul>
+<li>编码：避免编写带有副作用的代码（例如自执行函数里面使用外部变量）</li>
+<li>配置babel：开启babel的loose模式（根据自身项目判断是否真的要不可枚举class的属性）</li>
+<li>在开发js库时，使用rollup打包。<ul>
+<li>避免产生副作用代码，将功能函数或者组件打包成单独的文件或目录，以便用户通过目录加载（参照优秀的element-ui组件库）<br>-</li>
+</ul>
+</li>
+<li>把一件事做好，还是很难的呀</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>长缓存配置</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/09/soft-source/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1241,7 +1472,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1252,7 +1483,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -1263,7 +1494,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="npm,cnpm," />
+  <meta name="keywords" content="webpack,rollup,tree-shaking,plugin," />
 
 
 
@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="Usagenpm弊端  由于npm的源在国外，npm install 时经常出现模块和插件安装失败。 特别是node-sass，此时解决方案一般为删掉 node_modules 目录。  1$ rm -rf node_modules  然后再次重新安装所有依赖  1$ npm install  但是如此反复失败后，你会变得很没有脾气。  使用cnpm cnpm 官方给出的解释是 npm clien">
-<meta name="keywords" content="npm,cnpm">
+<meta name="description" content="webpack 构建流程 插件机制（插件机制是整个webpack工具的骨架，而webpack本身也是基于这套机制构建的）  如何编写一个插件   123456789101112131415161718// 1、some-webpack-plugin.js 文件（独立模块）// 2、模块对外暴露的 js 函数function SomewebpackPlugin(pluginOpions) &amp;#12">
+<meta name="keywords" content="webpack,rollup,tree-shaking,plugin">
 <meta property="og:type" content="article">
-<meta property="og:title" content="cnpm安装">
-<meta property="og:url" content="http://yoursite.com/2018/02/24/cnpm/index.html">
+<meta property="og:title" content="tree-shaking-practice">
+<meta property="og:url" content="http://yoursite.com/2018/04/30/tree-shaking-practice/index.html">
 <meta property="og:site_name" content="Careteen">
-<meta property="og:description" content="Usagenpm弊端  由于npm的源在国外，npm install 时经常出现模块和插件安装失败。 特别是node-sass，此时解决方案一般为删掉 node_modules 目录。  1$ rm -rf node_modules  然后再次重新安装所有依赖  1$ npm install  但是如此反复失败后，你会变得很没有脾气。  使用cnpm cnpm 官方给出的解释是 npm clien">
-<meta property="og:updated_time" content="2018-02-26T08:45:33.000Z">
+<meta property="og:description" content="webpack 构建流程 插件机制（插件机制是整个webpack工具的骨架，而webpack本身也是基于这套机制构建的）  如何编写一个插件   123456789101112131415161718// 1、some-webpack-plugin.js 文件（独立模块）// 2、模块对外暴露的 js 函数function SomewebpackPlugin(pluginOpions) &amp;#12">
+<meta property="og:updated_time" content="2018-04-30T13:45:34.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="cnpm安装">
-<meta name="twitter:description" content="Usagenpm弊端  由于npm的源在国外，npm install 时经常出现模块和插件安装失败。 特别是node-sass，此时解决方案一般为删掉 node_modules 目录。  1$ rm -rf node_modules  然后再次重新安装所有依赖  1$ npm install  但是如此反复失败后，你会变得很没有脾气。  使用cnpm cnpm 官方给出的解释是 npm clien">
+<meta name="twitter:title" content="tree-shaking-practice">
+<meta name="twitter:description" content="webpack 构建流程 插件机制（插件机制是整个webpack工具的骨架，而webpack本身也是基于这套机制构建的）  如何编写一个插件   123456789101112131415161718// 1、some-webpack-plugin.js 文件（独立模块）// 2、模块对外暴露的 js 函数function SomewebpackPlugin(pluginOpions) &amp;#12">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/02/24/cnpm/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/04/30/tree-shaking-practice/"/>
 
 
 
 
 
-  <title>cnpm安装 | Careteen</title>
+  <title>tree-shaking-practice | Careteen</title>
   
 
 
@@ -252,7 +252,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/24/cnpm/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/30/tree-shaking-practice/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Careteen Wang">
@@ -269,7 +269,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">cnpm安装</h1>
+          <h1 class="post-title" itemprop="name headline">tree-shaking-practice</h1>
         
 
         <div class="post-meta">
@@ -281,8 +281,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-24T15:53:08+08:00">
-                2018-02-24
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-30T21:43:20+08:00">
+                2018-04-30
               </time>
             
 
@@ -304,8 +304,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cnpm/" itemprop="url" rel="index">
-                    <span itemprop="name">cnpm</span>
+                  <a href="/categories/webpack/" itemprop="url" rel="index">
+                    <span itemprop="name">webpack</span>
                   </a>
                 </span>
 
@@ -322,8 +322,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/02/24/cnpm/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/02/24/cnpm/" itemprop="commentCount"></span>
+                <a href="/2018/04/30/tree-shaking-practice/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/04/30/tree-shaking-practice/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -351,31 +351,86 @@
       
 
       
-        <h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><h3 id="npm弊端"><a href="#npm弊端" class="headerlink" title="npm弊端"></a>npm弊端</h3><blockquote>
-<p> 由于npm的源在国外，npm install 时经常出现模块和插件安装失败。<br> 特别是node-sass，此时解决方案一般为删掉 node_modules 目录。</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rm -rf node_modules</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>然后再次重新安装所有依赖</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>但是如此反复失败后，你会变得很没有脾气。</p>
-</blockquote>
-<h3 id="使用cnpm"><a href="#使用cnpm" class="headerlink" title="使用cnpm"></a>使用cnpm</h3><blockquote>
-<p>cnpm 官方给出的解释是 npm client for China mirror of npm （npm的中国镜像客户端）。这个镜像源是淘宝做的。</p>
-</blockquote>
-<blockquote>
-<p>安装方法</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>使用方式和npm一毛一样</p>
-</blockquote>
+        <ul>
+<li>webpack 构建流程</li>
+<li><p>插件机制（插件机制是整个webpack工具的骨架，而webpack本身也是基于这套机制构建的）</p>
 <ul>
-<li>在此由衷的感谢淘宝前端团队为国内前端开发者做出的巨大贡献</li>
+<li><p>如何编写一个插件</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1、some-webpack-plugin.js 文件（独立模块）</span></span><br><span class="line"><span class="comment">// 2、模块对外暴露的 js 函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SomewebpackPlugin</span>(<span class="params">pluginOpions</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.options = pluginOptions;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 3、原型定义一个 apply 函数，并注入了 compiler 对象</span></span><br><span class="line">SomewebpackPlugin.prototype.apply = <span class="function"><span class="keyword">function</span> (<span class="params">compiler</span>) </span>&#123;</span><br><span class="line"><span class="comment">// 4、挂载 webpack 事件钩子（这里挂载的是 emit 事件）</span></span><br><span class="line">    compiler.plugin(<span class="string">'emit'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">compilation, callback</span>) </span>&#123;</span><br><span class="line">		<span class="comment">// ... 内部进行自定义的编译操作</span></span><br><span class="line">		<span class="comment">// 5、操作 compilation 对象的内部数据</span></span><br><span class="line">		<span class="built_in">console</span>.log(compilation);</span><br><span class="line">		<span class="comment">// 6、执行 callback 回调</span></span><br><span class="line">        callback();</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 暴露 js 函数</span></span><br><span class="line"><span class="built_in">module</span>.exports = SomewebpackPlugin;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>compiler对象和compilation对象</p>
+<ul>
+<li>compiler对象</li>
+<li>compilation对象</li>
 </ul>
-<h2 id="20180108（宜较真）："><a href="#20180108（宜较真）：" class="headerlink" title="20180108（宜较真）："></a>20180108（宜较真）：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">我数过</span><br><span class="line">鸽子每分钟会咕咕叫六十声</span><br><span class="line">            --《托斯卡纳艳阳下》弗朗西斯•梅斯</span><br></pre></td></tr></table></figure>
+</li>
+<li>webpack插件机制（在每个生命周期点，webpack为运行所有注册的插件，并提供当前webpack编译状态信息）<ul>
+<li>tapable实例</li>
+<li>运行流程</li>
+<li>webpack相关事件钩子</li>
+<li>compiler事件钩子</li>
+<li>compilation事件钩子</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>文件管理</p>
+<ul>
+<li>编译ES6、TS</li>
+<li>编译LESS、SASS</li>
+<li>图片压缩和base64编码</li>
+<li>自动生成雪碧图</li>
+</ul>
+</li>
+<li><p>打包优化</p>
+<ul>
+<li>代码分隔和懒加载</li>
+<li><p>tree shaking</p>
+<ul>
+<li>什么是tree shaking</li>
+<li>支持tree shaking 的构建工具<ul>
+<li>rollup</li>
+<li>webpack 2 +</li>
+<li>closure compiler</li>
+</ul>
+</li>
+<li>tree shaking 原理<ul>
+<li>Dead code elimination</li>
+<li>rollup和webpack构建结果对比（未使用tree shaking）</li>
+<li>rollup和webpack构建结果对比（使用tree shaking）<ul>
+<li>对于有副作用的代码仍然无法做到较好的静态分析<ul>
+<li>副作用</li>
+</ul>
+</li>
+<li>closure compiler 打包结果完美（但是需要侵入式写代码，前端er是很反感的）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>tree shaking 意义重大 （必须要做的）</li>
+<li><p>tree shaking 实践</p>
+<ul>
+<li>对组件库的引用做优化（基于antd对import的优化做修改，实现可配置引用其他组件库）</li>
+<li>CSS tree shaking</li>
+</ul>
+</li>
+<li><p>总结</p>
+<ul>
+<li>编码：避免编写带有副作用的代码（例如自执行函数里面使用外部变量）</li>
+<li>配置babel：开启babel的loose模式（根据自身项目判断是否真的要不可枚举class的属性）</li>
+<li>在开发js库时，使用rollup打包。<ul>
+<li>避免产生副作用代码，将功能函数或者组件打包成单独的文件或目录，以便用户通过目录加载（参照优秀的element-ui组件库）<br>-</li>
+</ul>
+</li>
+<li>把一件事做好，还是很难的呀</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>长缓存配置</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
@@ -393,9 +448,13 @@
       
         <div class="post-tags">
           
-            <a href="/tags/npm/" rel="tag"># npm</a>
+            <a href="/tags/webpack/" rel="tag"># webpack</a>
           
-            <a href="/tags/cnpm/" rel="tag"># cnpm</a>
+            <a href="/tags/rollup/" rel="tag"># rollup</a>
+          
+            <a href="/tags/tree-shaking/" rel="tag"># tree-shaking</a>
+          
+            <a href="/tags/plugin/" rel="tag"># plugin</a>
           
         </div>
       
@@ -408,15 +467,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/04/09/soft-source/" rel="next" title="常用软件下载">
+                <i class="fa fa-chevron-left"></i> 常用软件下载
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/02/26/vue-muti-pages/" rel="prev" title="基于vue-cli修改的多页面脚手架">
-                基于vue-cli修改的多页面脚手架 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -471,17 +530,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -541,22 +591,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Usage"><span class="nav-number">1.</span> <span class="nav-text">Usage</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#npm弊端"><span class="nav-number">1.1.</span> <span class="nav-text">npm弊端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用cnpm"><span class="nav-number">1.2.</span> <span class="nav-text">使用cnpm</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20180108（宜较真）："><span class="nav-number">2.</span> <span class="nav-text">20180108（宜较真）：</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
