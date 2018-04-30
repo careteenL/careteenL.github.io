@@ -12,6 +12,8 @@ categories: JS
 
 以下给出ES5、ES6两种实现方式。
 
+<!-- more -->
+
 ## ES5实现
 
 ```js

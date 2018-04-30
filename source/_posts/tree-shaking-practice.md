@@ -5,11 +5,12 @@ tags:
     - webpack
     - rollup
     - tree-shaking
-    - plugin
+    - webpack-plugin
 categories: webpack
 ---
 - webpack 构建流程
 - 插件机制（插件机制是整个webpack工具的骨架，而webpack本身也是基于这套机制构建的）
+<!-- more -->
 	- 如何编写一个插件
 		```js
 		// 1、some-webpack-plugin.js 文件（独立模块）

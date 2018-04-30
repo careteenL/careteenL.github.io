@@ -15,6 +15,8 @@ categories: vue
 
 脚手架地址： https://github.com/careteenL/vue-multi-page
 
+<!-- more -->
+
 ## 2. 安装vue-cli
 
 前提条件安装 `node` ，Windows用户前往官网 https://nodejs.org/en/ 下载并傻瓜式安装；Mac用户 iTerm 有自带。

@@ -21,6 +21,7 @@ $ rm -rf node_modules
 ``` bash
 $ npm install
 ```
+<!-- more -->
 
 > 但是如此反复失败后，你会变得很没有脾气。
 
