@@ -94,7 +94,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/02/26/vue-muti-pages/vue-webpack-4.png">
 <meta property="og:image" content="http://yoursite.com/2018/02/26/vue-muti-pages/vue-webpack-5.png">
 <meta property="og:image" content="http://yoursite.com/2018/02/26/vue-muti-pages/vue-add-page-1.png">
-<meta property="og:updated_time" content="2018-04-30T13:55:34.000Z">
+<meta property="og:updated_time" content="2018-05-01T04:02:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于vue-cli修改的多页面脚手架">
 <meta name="twitter:description" content="1.前言使用vue-cli脚手架可快速搭建一套单页应用并进行开发，这往往适用于B端项目，访问url、路由等由前端控制，且不需要SEO。 工作环境中可能会有一个场景：需要快速开发出多个交互不多且独立的活动页。此时，应该将其独立成一个新项目，便于后期维护。一个能让我们快速进入开发的脚手架就显得尤为重要。 脚手架地址： https://github.com/careteenL/vue-multi-pag">
@@ -204,7 +204,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Startseite
+            Accueil
           </a>
         </li>
       
@@ -224,7 +224,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archiv
+            Archives
           </a>
         </li>
       
@@ -288,7 +288,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-26T11:33:27+08:00">
                 2018-02-26
@@ -309,7 +309,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -378,11 +378,12 @@
 <p>3.2 修改 <code>build/webpack.dev.config.js</code>，plugins中注释红框内容，新增绿框内容。<br><img src="/2018/02/26/vue-muti-pages/vue-webpack-1.png" alt="vue-webpack-1"><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">].concat(utils.htmlPlugin())</span><br></pre></td></tr></table></figure></p>
 <p>3.3 修改<code>build/webpack.prod.config.js</code>，plugins中注释红框内容，新增绿框内容。<br><img src="/2018/02/26/vue-muti-pages/vue-webpack-2.png" alt="vue-webpack-2"><br><img src="/2018/02/26/vue-muti-pages/vue-webpack-3.png" alt="vue-webpack-3"><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">].concat(utils.htmlPlugin())</span><br></pre></td></tr></table></figure></p>
 <p>3.4 修改<code>build/webpack.base.config.js</code>，entry为<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">entry: <span class="built_in">Object</span>.assign(&#123;</span><br><span class="line">    <span class="string">'bundle'</span>: [</span><br><span class="line">        <span class="string">'babel-polyfill'</span></span><br><span class="line">    ]</span><br><span class="line">&#125;, utils.entries()),</span><br></pre></td></tr></table></figure></p>
-<p>3.5 新增<code>config/mutil-page-config.js</code>，集中控制<code>url</code>、<code>port</code>、<code>proxyTable</code>(接口映射)、<code>pageMap</code>(页面访问配置)<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="string">"url"</span>: <span class="string">"127.0.0.1"</span>,</span><br><span class="line">    <span class="string">"port"</span>: <span class="string">"2333"</span>,</span><br><span class="line">    <span class="string">"proxyTable"</span>: &#123;</span><br><span class="line">        <span class="string">"/xxx"</span>: <span class="string">"http://xxx.xxx.cn/xxx"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"pageMap"</span>: &#123;</span><br><span class="line">        <span class="string">"testPage"</span>: &#123;</span><br><span class="line">            <span class="string">"aliasPage"</span>: <span class="string">"testPage"</span>,</span><br><span class="line">            <span class="string">"realPage"</span>: <span class="string">"testPage.html"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">新增<span class="string">`config/proxy.js`</span></span><br></pre></td></tr></table></figure></p>
-<p><img src="/2018/02/26/vue-muti-pages/vue-webpack-4.png" alt="vue-webpack-4"></p>
-<p>修改<code>config/index.js</code>，配置dev下host、port<br><img src="/2018/02/26/vue-muti-pages/vue-webpack-5.png" alt="vue-webpack-5"></p>
-<p>修改 <code>build/webpack.dev.config.js</code>，<br>devServer 中新增 proxy<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">proxy: config.dev.proxyTable,</span><br></pre></td></tr></table></figure></p>
+<p>3.5 新增<code>config/mutil-page-config.js</code>，集中控制<code>url</code>、<code>port</code>、<code>proxyTable</code>(接口映射)、<code>pageMap</code>(页面访问配置)<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="string">"url"</span>: <span class="string">"127.0.0.1"</span>,</span><br><span class="line">    <span class="string">"port"</span>: <span class="string">"2333"</span>,</span><br><span class="line">    <span class="string">"proxyTable"</span>: &#123;</span><br><span class="line">        <span class="string">"/xxx"</span>: <span class="string">"http://xxx.xxx.cn/xxx"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"pageMap"</span>: &#123;</span><br><span class="line">        <span class="string">"testPage"</span>: &#123;</span><br><span class="line">            <span class="string">"aliasPage"</span>: <span class="string">"testPage"</span>,</span><br><span class="line">            <span class="string">"realPage"</span>: <span class="string">"testPage.html"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3.6 新增<code>config/proxy.js</code><br><img src="/2018/02/26/vue-muti-pages/vue-webpack-4.png" alt="vue-webpack-4"></p>
+<p>3.7 修改<code>config/index.js</code>，配置dev下host、port<br><img src="/2018/02/26/vue-muti-pages/vue-webpack-5.png" alt="vue-webpack-5"></p>
+<p>3.8 修改 <code>build/webpack.dev.config.js</code>，<br>devServer 中新增 proxy<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">proxyTable: <span class="built_in">require</span>(<span class="string">'./proxy.js'</span>),</span><br></pre></td></tr></table></figure></p>
 <p>新增以下代码，控制dev下前端路由<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mutilPageConf = <span class="built_in">require</span>(<span class="string">'../config/mutil-page-config.js'</span>)</span><br><span class="line"><span class="comment">// dev-server 下 前端路由</span></span><br><span class="line"><span class="keyword">let</span> pageUrlRules = [];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> page <span class="keyword">in</span> mutilPageConf.pageMap) &#123;</span><br><span class="line">    <span class="keyword">if</span> (mutilPageConf.pageMap.hasOwnProperty(page)) &#123;</span><br><span class="line">        <span class="keyword">let</span> pageItem = mutilPageConf.pageMap[page];</span><br><span class="line">        pageUrlRules.push(&#123;</span><br><span class="line">            <span class="keyword">from</span>: <span class="keyword">new</span> <span class="built_in">RegExp</span>(pageItem.aliasPage),</span><br><span class="line">            to: path.posix.join(config.dev.assetsPublicPath, <span class="string">'vm/'</span> + pageItem.realPage)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后再在<code>devServer</code>中配置<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rewrites: [...pageUrlRules]</span><br></pre></td></tr></table></figure></p>
 <h2 id="4-新增页面"><a href="#4-新增页面" class="headerlink" title="4. 新增页面"></a>4. 新增页面</h2><p>运行下面脚本可在page目录下生成以下几个文件。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node add-page.js testPage</span><br></pre></td></tr></table></figure></p>
 <p><img src="/2018/02/26/vue-muti-pages/vue-add-page-1.png" alt="vue-add-page-1"></p>
 <h2 id="5-封装请求库（axios）"><a href="#5-封装请求库（axios）" class="headerlink" title="5. 封装请求库（axios）"></a>5. 封装请求库（axios）</h2><p>在server目录下新增fetch.js<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">'axios'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @desc 封装axios，减少学习成本，参数基本跟jq ajax一致</span></span><br><span class="line"><span class="comment"> * @param &#123;String&#125; type [default: GET]                     请求的类型</span></span><br><span class="line"><span class="comment"> * @param &#123;String&#125; url			                           请求地址</span></span><br><span class="line"><span class="comment"> * @param &#123;String&#125; time  [default: 10s]			           超时时间</span></span><br><span class="line"><span class="comment"> * @param &#123;Object&#125; data		               	               请求参数</span></span><br><span class="line"><span class="comment"> * @param &#123;Boolean&#125; withCredentials  [default: false]	   是否携带cookie</span></span><br><span class="line"><span class="comment"> * @param &#123;String&#125; dataType         		               预期服务器返回的数据类型，xml html json ...</span></span><br><span class="line"><span class="comment"> * @param &#123;Object&#125; headers          		               自定义请求headers</span></span><br><span class="line"><span class="comment"> * @param &#123;Function&#125; success            	               请求成功后，这里会有两个参数,服务器返回数据，返回状态，[data, res]</span></span><br><span class="line"><span class="comment"> * @param &#123;Function&#125; error		                           发送请求前</span></span><br><span class="line"><span class="comment"> * @return &#123;Promise&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> ajax = <span class="function"><span class="keyword">function</span> (<span class="params">config</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> configs = config || &#123;&#125;;</span><br><span class="line">    <span class="keyword">if</span> (!configs.url) &#123;</span><br><span class="line">        <span class="built_in">console</span>.error(<span class="string">'请填写接口地址'</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    axios(&#123;</span><br><span class="line">        method: configs.type || <span class="string">'get'</span>,</span><br><span class="line">        url: configs.url,</span><br><span class="line">        params: configs.data || &#123;&#125;,</span><br><span class="line">        header: configs.headers || &#123;</span><br><span class="line">            <span class="string">'Content-Type'</span>:<span class="string">'application/x-www-form-urlencoded'</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">// baseURL: '',</span></span><br><span class="line">        withCredentials: configs.withCredentials || <span class="literal">false</span>,</span><br><span class="line">        timeout: configs.time || <span class="number">10</span> * <span class="number">1000</span>,</span><br><span class="line">        responseType: configs.dataType || <span class="string">'json'</span></span><br><span class="line">    &#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="number">200</span> == res.status) &#123;</span><br><span class="line">            <span class="keyword">if</span> (configs.success) &#123;</span><br><span class="line">                configs.success(res.data, res);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (data.error) &#123;</span><br><span class="line">                configs.error(error)</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="built_in">console</span>.error(<span class="string">'[timeout] 访问人数过多，请稍后重试'</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;).catch(<span class="function"><span class="keyword">function</span>(<span class="params">error</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.error(error);</span><br><span class="line">        <span class="keyword">if</span> (configs.error) &#123;</span><br><span class="line">            configs.error(error);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">console</span>.error(<span class="string">'[timeout] 访问人数过多，请稍后重试'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> ajax;</span><br></pre></td></tr></table></figure></p>
@@ -490,10 +491,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Inhaltsverzeichnis
+            Table Des Matières
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Übersicht
+            Ensemble
           </li>
         </ul>
       
@@ -514,7 +515,7 @@
                 <a href="/archives/">
               
                   <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">Artikel</span>
+                  <span class="site-state-item-name">articles</span>
                 </a>
               </div>
             
@@ -525,7 +526,7 @@
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
                   <span class="site-state-item-count">5</span>
-                  <span class="site-state-item-name">Kategorien</span>
+                  <span class="site-state-item-name">categories</span>
                 </a>
               </div>
             
@@ -536,7 +537,7 @@
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
                   <span class="site-state-item-count">13</span>
-                  <span class="site-state-item-name">Tags</span>
+                  <span class="site-state-item-name">tags</span>
                 </a>
               </div>
             
@@ -600,7 +601,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 
@@ -608,7 +609,7 @@
 
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">Thème &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
 
 
 
