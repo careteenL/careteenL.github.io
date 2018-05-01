@@ -154,17 +154,17 @@ module.exports = {
     }
 }
 
-新增`config/proxy.js`
 ```
+3.6 新增`config/proxy.js`
 ![vue-webpack-4](vue-muti-pages/vue-webpack-4.png)
 
-修改`config/index.js`，配置dev下host、port
+3.7 修改`config/index.js`，配置dev下host、port
 ![vue-webpack-5](vue-muti-pages/vue-webpack-5.png)
 
-修改 `build/webpack.dev.config.js`，
+3.8 修改 `build/webpack.dev.config.js`，
 devServer 中新增 proxy
 ```js
-proxy: config.dev.proxyTable,
+proxyTable: require('./proxy.js'),
 ```
 新增以下代码，控制dev下前端路由
 ```js
@@ -181,7 +181,10 @@ for (let page in mutilPageConf.pageMap) {
     }
 }
 ```
-
+然后再在`devServer`中配置
+```js
+rewrites: [...pageUrlRules]
+```
 ## 4. 新增页面
 
 运行下面脚本可在page目录下生成以下几个文件。
