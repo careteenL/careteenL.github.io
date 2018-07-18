@@ -1,5 +1,5 @@
 ---
-title: regexp
+title: 正则表达式奇技淫巧
 date: 2018-07-18 20:27:57
 tags:
     - RegExp
@@ -8,6 +8,8 @@ tags:
 ---
 
 ![cat](regexp/chrome.gif)
+
+善用正则表达式可以少些很多代码。
 
 <!-- more -->
 
@@ -119,9 +121,7 @@ const RegExpFns = {
      * @param {String} str
      * @return {String} str
      * @example
-     ```js
      RegExpFns._camel2Kebab('careteenLanlan'); // careteen-lanlan
-     ```
      */
     _camel2Kebab (str) {
         return str.replace(/([A-Z])/g, '-$1').toLowerCase();
@@ -133,9 +133,7 @@ const RegExpFns = {
      * @param {String} str
      * @return {String} str
      * @example
-     ```js
      RegExpFns._kebab2Camel('careteen-lanlan'); // careteenLanlan
-     ```
      */
     _kebab2Camel (str) {
         return str.replace(/-(\w)/g, (match, $1) => {
@@ -149,9 +147,7 @@ const RegExpFns = {
      * @param {String|Number} str 只适合整数字符
      * @return {String} str
      * @example
-     ```js
      RegExpFns._thousandSeq('1234567'); // 1,234,567
-     ```
      */
     _thousandSeq (str) {
         return str && str.toString().replace(/(?!^)(?=(\d{3})+$)/g, ',');
@@ -163,9 +159,7 @@ const RegExpFns = {
      * @param {Number} num
      * @return {Boolean}
      * @example
-     ```js
      RegExpFns._isPrime(2); // true
-     ```
      * @reference https://github.com/jawil/blog/issues/20
      */
     _isPrime (num) {
@@ -178,9 +172,7 @@ const RegExpFns = {
      * @param {String} str
      * @return {String|Boolean}
      * @example
-     ```js
      RegExpFns._trim(' care teen  '); // 'care teen'
-     ```
      */
     _trim (str) {
         if (typeof str !== 'string') {
@@ -197,9 +189,7 @@ const RegExpFns = {
      * @param  {String} url   [default: location.href]
 	 * @return {String|Boolean}
      * @example
-     ```js
      RegExpFns._getParam('name', 'http://blog.careteen.wang?name=careteen&age=22'); // 'careteen'
-     ```
      */
     _getParam (name, url) {
         if (typeof name !== 'string') return false;
@@ -213,7 +203,6 @@ const RegExpFns = {
 		return decodeURIComponent(results[2].replace(/\+/g, ' '));
     }
 }
-
 
 /**
  *

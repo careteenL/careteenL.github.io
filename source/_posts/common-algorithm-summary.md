@@ -1,5 +1,5 @@
 ---
-title: common-algorithm-summary
+title: 常用算法总结
 date: 2018-06-11 15:35:51
 tags:
     - algorithm
@@ -7,6 +7,8 @@ tags:
 ---
 
 ## 常用算法总结
+
+<!-- more -->
 
 ### 二叉树
 
