@@ -30,6 +30,9 @@ IOS系统中，app端无需过多处理，webview中h5使用`type="file"`即可�
 ```
 Android系统中，则需要app端稍作处理，才能在h5中调起手机相册，h5端如上编码即可。
 
+原因：openFileChooser做了多次修改，在5.0上更是将回调方法该为了onShowFileChooser。
+解决：对openFileChooser()进行重载，同时针对5.0及以上系统提供onShowFileChooser()，不混淆openFileChooser()
+
 app端可参考[android使用webview上传文件(支持相册和拍照)](https://blog.csdn.net/woshinia/article/details/19030437)、[Android 如何選取圖片或是檔案？](https://magiclen.org/android-filechooser/)
 
 ## 引入骨架页
