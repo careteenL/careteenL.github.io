@@ -79,17 +79,19 @@
 
 
 
-<meta name="description" content="webpack 构建流程 插件机制（插件机制是整个webpack工具的骨架，而webpack本身也是基于这套机制构建的）">
+<meta name="description" content="对 tree shaking 的简单实践，demo传送门，插件移步 -&amp;gt; 移除没有使用到的css选择器 -插件 、import element-ui、antd 时缩小引用范围，优化打包 -插件">
 <meta name="keywords" content="webpack,rollup,tree-shaking,webpack-plugin">
 <meta property="og:type" content="article">
-<meta property="og:title" content="tree-shaking-practice">
+<meta property="og:title" content="tree-shaking实践">
 <meta property="og:url" content="http://yoursite.com/2018/04/30/tree-shaking-practice/index.html">
 <meta property="og:site_name" content="Careteen">
-<meta property="og:description" content="webpack 构建流程 插件机制（插件机制是整个webpack工具的骨架，而webpack本身也是基于这套机制构建的）">
-<meta property="og:updated_time" content="2018-04-30T13:54:39.000Z">
+<meta property="og:description" content="对 tree shaking 的简单实践，demo传送门，插件移步 -&amp;gt; 移除没有使用到的css选择器 -插件 、import element-ui、antd 时缩小引用范围，优化打包 -插件">
+<meta property="og:image" content="http://yoursite.com/2018/04/30/tree-shaking-practice/tree-shaking.png">
+<meta property="og:updated_time" content="2018-08-01T08:57:55.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tree-shaking-practice">
-<meta name="twitter:description" content="webpack 构建流程 插件机制（插件机制是整个webpack工具的骨架，而webpack本身也是基于这套机制构建的）">
+<meta name="twitter:title" content="tree-shaking实践">
+<meta name="twitter:description" content="对 tree shaking 的简单实践，demo传送门，插件移步 -&amp;gt; 移除没有使用到的css选择器 -插件 、import element-ui、antd 时缩小引用范围，优化打包 -插件">
+<meta name="twitter:image" content="http://yoursite.com/2018/04/30/tree-shaking-practice/tree-shaking.png">
 
 
 
@@ -125,7 +127,7 @@
 
 
 
-  <title>tree-shaking-practice | Careteen</title>
+  <title>tree-shaking实践 | Careteen</title>
   
 
 
@@ -195,7 +197,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            Startseite
           </a>
         </li>
       
@@ -215,7 +217,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -269,7 +271,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">tree-shaking-practice</h1>
+          <h1 class="post-title" itemprop="name headline">tree-shaking实践</h1>
         
 
         <div class="post-meta">
@@ -279,7 +281,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-30T21:43:20+08:00">
                 2018-04-30
@@ -300,7 +302,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -351,10 +353,11 @@
       
 
       
-        <ul>
+        <p><img src="/2018/04/30/tree-shaking-practice/tree-shaking.png" alt="tree-shaking"><br>对 tree shaking 的简单实践，<a href="https://github.com/careteenL/tree-shaking-practice" target="_blank" rel="noopener">demo传送门</a>，插件移步 -&gt; <a href="https://github.com/careteenL/remove-uncss-webpack-plugin" target="_blank" rel="noopener">移除没有使用到的css选择器 -插件</a> 、<a href="https://github.com/careteenL/babel-plugin-import-opt" target="_blank" rel="noopener">import element-ui、antd 时缩小引用范围，优化打包 -插件</a></p>
+<a id="more"></a>
+<ul>
 <li>webpack 构建流程</li>
 <li><p>插件机制（插件机制是整个webpack工具的骨架，而webpack本身也是基于这套机制构建的）</p>
-<a id="more"></a>
 <ul>
 <li><p>如何编写一个插件</p>
   <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1、some-webpack-plugin.js 文件（独立模块）</span></span><br><span class="line"><span class="comment">// 2、模块对外暴露的 js 函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SomewebpackPlugin</span>(<span class="params">pluginOpions</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.options = pluginOptions;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 3、原型定义一个 apply 函数，并注入了 compiler 对象</span></span><br><span class="line">SomewebpackPlugin.prototype.apply = <span class="function"><span class="keyword">function</span> (<span class="params">compiler</span>) </span>&#123;</span><br><span class="line"><span class="comment">// 4、挂载 webpack 事件钩子（这里挂载的是 emit 事件）</span></span><br><span class="line">    compiler.plugin(<span class="string">'emit'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">compilation, callback</span>) </span>&#123;</span><br><span class="line">		<span class="comment">// ... 内部进行自定义的编译操作</span></span><br><span class="line">		<span class="comment">// 5、操作 compilation 对象的内部数据</span></span><br><span class="line">		<span class="built_in">console</span>.log(compilation);</span><br><span class="line">		<span class="comment">// 6、执行 callback 回调</span></span><br><span class="line">        callback();</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 暴露 js 函数</span></span><br><span class="line"><span class="built_in">module</span>.exports = SomewebpackPlugin;</span><br></pre></td></tr></table></figure>
@@ -556,7 +559,7 @@
                 <a href="/archives/">
               
                   <span class="site-state-item-count">12</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
             
@@ -567,7 +570,7 @@
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
                   <span class="site-state-item-count">5</span>
-                  <span class="site-state-item-name">categories</span>
+                  <span class="site-state-item-name">Kategorien</span>
                 </a>
               </div>
             
@@ -578,7 +581,7 @@
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
                   <span class="site-state-item-count">21</span>
-                  <span class="site-state-item-name">tags</span>
+                  <span class="site-state-item-name">Tags</span>
                 </a>
               </div>
             
@@ -626,7 +629,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 

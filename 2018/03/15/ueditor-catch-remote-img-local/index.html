@@ -79,21 +79,22 @@
 
 
 
-<meta name="description" content="1. 前言当用户在使用ueditor富文本编辑器时，可直接复制粘贴。但是粘贴内容含有图片时，图片地址域名是你复制内容所在的域名，此时最好将图片上传到自己公司CDN，有保障的使用。 此前由后端去匹配表单提交内容中含有的图片，先根据图片&amp;lt;img src=&amp;quot;xxx&amp;quot;&amp;gt;中的src将图片down下来，然后上传到自己的接口，最后将图片地址更换。 这种只由后端处理的方式存在一定性">
+<meta name="description" content="ueditor抓取远程图片实现本地化">
 <meta name="keywords" content="ueditor">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ueditor抓取远程图片本地化">
 <meta property="og:url" content="http://yoursite.com/2018/03/15/ueditor-catch-remote-img-local/index.html">
 <meta property="og:site_name" content="Careteen">
-<meta property="og:description" content="1. 前言当用户在使用ueditor富文本编辑器时，可直接复制粘贴。但是粘贴内容含有图片时，图片地址域名是你复制内容所在的域名，此时最好将图片上传到自己公司CDN，有保障的使用。 此前由后端去匹配表单提交内容中含有的图片，先根据图片&amp;lt;img src=&amp;quot;xxx&amp;quot;&amp;gt;中的src将图片down下来，然后上传到自己的接口，最后将图片地址更换。 这种只由后端处理的方式存在一定性">
+<meta property="og:description" content="ueditor抓取远程图片实现本地化">
+<meta property="og:image" content="http://yoursite.com/2018/03/15/ueditor-catch-remote-img-local/ueditor.png">
 <meta property="og:image" content="http://yoursite.com/2018/03/15/ueditor-catch-remote-img-local/ueditor_1.png">
 <meta property="og:image" content="http://yoursite.com/2018/03/15/ueditor-catch-remote-img-local/ueditor_2.png">
 <meta property="og:image" content="http://yoursite.com/2018/03/15/ueditor-catch-remote-img-local/ueditor_3.png">
-<meta property="og:updated_time" content="2018-04-30T13:54:59.000Z">
+<meta property="og:updated_time" content="2018-08-01T09:15:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ueditor抓取远程图片本地化">
-<meta name="twitter:description" content="1. 前言当用户在使用ueditor富文本编辑器时，可直接复制粘贴。但是粘贴内容含有图片时，图片地址域名是你复制内容所在的域名，此时最好将图片上传到自己公司CDN，有保障的使用。 此前由后端去匹配表单提交内容中含有的图片，先根据图片&amp;lt;img src=&amp;quot;xxx&amp;quot;&amp;gt;中的src将图片down下来，然后上传到自己的接口，最后将图片地址更换。 这种只由后端处理的方式存在一定性">
-<meta name="twitter:image" content="http://yoursite.com/2018/03/15/ueditor-catch-remote-img-local/ueditor_1.png">
+<meta name="twitter:description" content="ueditor抓取远程图片实现本地化">
+<meta name="twitter:image" content="http://yoursite.com/2018/03/15/ueditor-catch-remote-img-local/ueditor.png">
 
 
 
@@ -199,7 +200,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            Startseite
           </a>
         </li>
       
@@ -219,7 +220,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -283,7 +284,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-15T14:35:56+08:00">
                 2018-03-15
@@ -333,11 +334,13 @@
       
 
       
-        <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h2><p>当用户在使用ueditor富文本编辑器时，可直接复制粘贴。但是粘贴内容含有图片时，图片地址域名是你复制内容所在的域名，此时最好将图片上传到自己公司CDN，有保障的使用。</p>
+        <p><img src="/2018/03/15/ueditor-catch-remote-img-local/ueditor.png" alt="ueditor"><br>ueditor抓取远程图片实现本地化</p>
+<a id="more"></a>
+<h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h2><p>当用户在使用ueditor富文本编辑器时，可直接复制粘贴。但是粘贴内容含有图片时，图片地址域名是你复制内容所在的域名，此时最好将图片上传到自己公司CDN，有保障的使用。</p>
 <p>此前由后端去匹配表单提交内容中含有的图片，先根据图片<code>&lt;img src=&quot;xxx&quot;&gt;</code>中的src将图片down下来，然后上传到自己的接口，最后将图片地址更换。</p>
 <p>这种只由后端处理的方式存在一定性能问题，当用户复制几十张甚至更多图片的时候，后端处理接口超时，导致失败。</p>
 <p>此时应该在前端去将远程图片实现本地化的替换，在提交ueditor内容后，省去了后端的替换过程（后端可以保留替换，以便处理漏网之鱼）</p>
-<a id="more"></a>
+<!-- more -->
 <h2 id="2-实现"><a href="#2-实现" class="headerlink" title="2.实现"></a>2.实现</h2><h3 id="远程抓取原理"><a href="#远程抓取原理" class="headerlink" title="远程抓取原理"></a>远程抓取原理</h3><p>图片远程抓取是指在插入本地域名之外的图片链接地址时，由服务器将这些外部图片抓取到本地服务器保存的一个功能。实现原理为在编辑器中向服务器发送包含所有 外域图片地址的ajax请求，然后由服务器在后端抓取保存后返回图片地址给编辑器，再由编辑器完成外域地址和本地地址的替换工作。</p>
 <h3 id="ueditor提供的API"><a href="#ueditor提供的API" class="headerlink" title="ueditor提供的API"></a>ueditor提供的API</h3><p>ueditor功能介绍： <a href="http://www.cnblogs.com/Zell-Dinch/articles/3917827.html" target="_blank" rel="noopener">http://www.cnblogs.com/Zell-Dinch/articles/3917827.html</a></p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//是否开启远程图片抓取</span></span><br><span class="line">catchRemoteImageEnable:<span class="literal">true</span>,</span><br><span class="line"></span><br><span class="line"><span class="comment">//处理远程图片抓取的地址</span></span><br><span class="line">catcherUrl:URL +<span class="string">"server/submit/php/getRemoteImage.php"</span>,  </span><br><span class="line"></span><br><span class="line"><span class="comment">//提交到后台远程图片uri合集的表单名</span></span><br><span class="line">catchFieldName:<span class="string">"upFile"</span>,     </span><br><span class="line"></span><br><span class="line"><span class="comment">//图片修正地址，同imagePath</span></span><br><span class="line">catcherPath:fixedImagePath,</span><br><span class="line"></span><br><span class="line"><span class="comment">//本地顶级域名，当开启远程图片抓取时，除此之外的所有其它域名下的</span></span><br><span class="line"><span class="comment">//图片都将被抓取到本地                                   </span></span><br><span class="line">localDomain:[<span class="string">"baidu.com"</span>,<span class="string">"10.81.2.114"</span>],</span><br></pre></td></tr></table></figure>
@@ -459,10 +462,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            Übersicht
           </li>
         </ul>
       
@@ -483,7 +486,7 @@
                 <a href="/archives/">
               
                   <span class="site-state-item-count">12</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
             
@@ -494,7 +497,7 @@
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
                   <span class="site-state-item-count">5</span>
-                  <span class="site-state-item-name">categories</span>
+                  <span class="site-state-item-name">Kategorien</span>
                 </a>
               </div>
             
@@ -505,7 +508,7 @@
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
                   <span class="site-state-item-count">21</span>
-                  <span class="site-state-item-name">tags</span>
+                  <span class="site-state-item-name">Tags</span>
                 </a>
               </div>
             
@@ -569,7 +572,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 
