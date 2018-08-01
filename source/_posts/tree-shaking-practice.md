@@ -1,5 +1,5 @@
 ---
-title: tree-shaking-practice
+title: tree-shaking实践
 date: 2018-04-30 21:43:20
 tags:
     - webpack
@@ -8,9 +8,14 @@ tags:
     - webpack-plugin
 categories: webpack
 ---
+
+![tree-shaking](tree-shaking-practice/tree-shaking.png)
+对 tree shaking 的简单实践，[demo传送门](https://github.com/careteenL/tree-shaking-practice)，插件移步 -> [移除没有使用到的css选择器 -插件](https://github.com/careteenL/remove-uncss-webpack-plugin) 、[import element-ui、antd 时缩小引用范围，优化打包 -插件](https://github.com/careteenL/babel-plugin-import-opt)
+
+<!-- more -->
+
 - webpack 构建流程
 - 插件机制（插件机制是整个webpack工具的骨架，而webpack本身也是基于这套机制构建的）
-<!-- more -->
 	- 如何编写一个插件
 		```js
 		// 1、some-webpack-plugin.js 文件（独立模块）

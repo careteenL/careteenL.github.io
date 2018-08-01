@@ -6,6 +6,11 @@ tags:
 categories: Soft    
 ---
 
+![ps](soft-source/ps.png)
+存放在工作中所需要使用到的软件
+
+<!-- more -->
+
 ## 前言
 
 存放在工作中所需要使用到的软件
@@ -18,7 +23,7 @@ categories: Soft
 
 密码: vgb0
 ```
-<!-- more -->
+
 注意
 - 安装Chrome插件GreenHub或其他翻墙方式（可选）实现翻墙
 - 安装之前需要安装creative cloud https://creative.adobe.com/zh-cn/products/download/creative-cloud?promoid=KSPDX

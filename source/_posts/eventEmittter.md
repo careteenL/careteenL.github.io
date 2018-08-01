@@ -5,14 +5,15 @@ tags:
     - 事件订阅
 categories: JS
 ---
+![event-bus](eventEmittter/event-bus.png)
+为组件间通信实现一个事件总线
+<!-- more -->
 
 ## 前言
 
 在日常工作跨模块开发时，很常见的一个场景：不同模块间的事件通信。
 
 以下给出ES5、ES6两种实现方式。
-
-<!-- more -->
 
 ## ES5实现
 

@@ -5,7 +5,7 @@ tags:
     - APP内嵌H5
 ---
 
-![keep-calm-and-make-epic-shit](app-inlay-h5/keep-calm-and-make-epic-shit.jpg)
+![keep-calm-and-make-epic-shit](app-inlay-h5/keep-calm-and-make-epic-shit.png)
 
 APP内嵌H5时H5编码总结，持续完善...
 

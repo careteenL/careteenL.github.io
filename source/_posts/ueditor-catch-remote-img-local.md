@@ -4,6 +4,12 @@ date: 2018-03-15 14:35:56
 tags:
     - ueditor
 ---
+
+![ueditor](ueditor-catch-remote-img-local/ueditor.png)
+ueditor抓取远程图片实现本地化
+
+<!-- more -->
+
 ## 1. 前言
 
 当用户在使用ueditor富文本编辑器时，可直接复制粘贴。但是粘贴内容含有图片时，图片地址域名是你复制内容所在的域名，此时最好将图片上传到自己公司CDN，有保障的使用。

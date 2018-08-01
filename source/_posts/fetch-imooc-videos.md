@@ -5,6 +5,12 @@ tags:
     - imooc
     - Chrome插件
 ---
+
+![imooc](fetch-imooc-videos/imooc.png)
+抓取慕课网视频
+
+<!-- more -->
+
 ## 前言
 
 慕课网上的视频

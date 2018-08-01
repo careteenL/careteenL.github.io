@@ -7,6 +7,10 @@ tags:
 categories: vue
 ---
 
+![vu-muti-page](vue-muti-pages/vu-muti-page.png)
+搭建一个适合特定场景可以开箱即用的多页面脚手架，提供常用的公用组件、JS工具函数、可复用的CSS。
+<!-- more -->
+
 ## 1.前言
 
 使用vue-cli脚手架可快速搭建一套单页应用并进行开发，这往往适用于B端项目，访问url、路由等由前端控制，且不需要SEO。
@@ -14,8 +18,6 @@ categories: vue
 工作环境中可能会有一个场景：需要快速开发出多个交互不多且独立的活动页。此时，应该将其独立成一个新项目，便于后期维护。一个能让我们快速进入开发的脚手架就显得尤为重要。
 
 脚手架地址： https://github.com/careteenL/vue-multi-page
-
-<!-- more -->
 
 ## 2. 安装vue-cli
 

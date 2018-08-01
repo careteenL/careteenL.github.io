@@ -7,7 +7,7 @@ tags:
 
 ---
 
-![cat](regexp/chrome.gif)
+![regexp](regexp/regexp.jpeg)
 
 善用正则表达式可以少些很多代码。
 

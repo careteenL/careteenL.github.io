@@ -6,9 +6,12 @@ tags:
     - bst
 ---
 
-## 常用算法总结
+![sort](common-algorithm-summary/sort.gif)
+常用算法总结
 
 <!-- more -->
+
+## 常用算法总结
 
 ### 二叉树
 
