@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="模板,面试官系列," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="面试官系列：实现一个模板引擎">
+<meta name="keywords" content="模板,面试官系列">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试官：实现一个简易的模板引擎">
+<meta property="og:url" content="http://yoursite.com/2018/08/01/template-engine/index.html">
+<meta property="og:site_name" content="Careteen">
+<meta property="og:description" content="面试官系列：实现一个模板引擎">
+<meta property="og:image" content="http://yoursite.com/2018/08/01/template-engine/baotou.jpg">
+<meta property="og:updated_time" content="2018-08-01T07:18:31.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="面试官：实现一个简易的模板引擎">
+<meta name="twitter:description" content="面试官系列：实现一个模板引擎">
+<meta name="twitter:image" content="http://yoursite.com/2018/08/01/template-engine/baotou.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/01/template-engine/"/>
+
+
+
+
+
+  <title>面试官：实现一个简易的模板引擎 | Careteen</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?01ae7569e2d2c54c22217b405dc11266";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Careteen</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Live Fast, Die Young.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/01/template-engine/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Careteen Wang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Careteen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">面试官：实现一个简易的模板引擎</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-01T15:05:10+08:00">
+                2018-08-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/01/template-engine/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/08/01/template-engine/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>面试官系列：实现一个模板引擎</p>
+<p><img src="/2018/08/01/template-engine/baotou.jpg" alt="baotou"></p>
+<a id="more"></a>
+<h2 id="模板引擎"><a href="#模板引擎" class="headerlink" title="模板引擎"></a>模板引擎</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>面试官系列：实现一个模板引擎</p>
+<p>完整使用代码见 <a href="https://github.com/careteenL/webFEDeveloper/blob/master/Front-end-knowledge/advanced/20180801-template_engine.js" target="_blank" rel="noopener">模板引擎demo</a></p>
+<h3 id="模板引擎的实现"><a href="#模板引擎的实现" class="headerlink" title="模板引擎的实现"></a>模板引擎的实现</h3><h4 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h4><p>1、模板获取</p>
+<p>2、模板中HTML结构与JavaScript语句、变量分离</p>
+<p>3、Function + apply(call)动态生成JavaScript代码</p>
+<p>4、模板缓存</p>
+<h3 id="1、模板获取"><a href="#1、模板获取" class="headerlink" title="1、模板获取"></a>1、模板获取</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 匹配模板id</span></span><br><span class="line"><span class="keyword">const</span> idReg = <span class="regexp">/[\s\W]/g</span></span><br><span class="line"><span class="comment">// 如果是模板字符串，会包含非单词部分（&lt;, &gt;, %,  等）；如果是id，则需要通过getElementById获取</span></span><br><span class="line"><span class="keyword">if</span> (!idReg.test(str)) &#123;</span><br><span class="line">    tpl = <span class="built_in">document</span>.getElementById(str).innerHTML</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    tpl = str</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2、模板中HTML结构与JavaScript语句、变量分离-的思路"><a href="#2、模板中HTML结构与JavaScript语句、变量分离-的思路" class="headerlink" title="2、模板中HTML结构与JavaScript语句、变量分离 的思路"></a>2、模板中HTML结构与JavaScript语句、变量分离 的思路</h3><p>1、需要一个正则表达式/&lt;%=?\s<em>([^%&gt;]+?)\s</em>%&gt;/g， 可以匹配&lt;% xxx %&gt;, &lt;%= xxx %&gt;</p>
+<p>2、需要一个辅助变量cursor，记录HTML结构匹配的开始位置</p>
+<p>3、需要使用exec函数，匹配过程中内部的index值会根据每一次匹配成功后动态的改变</p>
+<p>4、创建数组arr，再拼接字符串arr.push(‘</p>
+<p>5、 遇到换行回车，替换为空字符串</p>
+<p>6、 遇到&lt;%时，替换为’);</p>
+<p>7、遇到&gt;%时，替换为arr.push(‘</p>
+<h4 id="2-1模板写法"><a href="#2-1模板写法" class="headerlink" title="2.1模板写法"></a>2.1模板写法</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">"text/html"</span> id=<span class="string">"template"</span>&gt;</span><br><span class="line">	&lt;ul&gt;</span><br><span class="line">		&lt;% <span class="keyword">if</span> (obj.show) &#123; %&gt;</span><br><span class="line">			&lt;% <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; obj.users.length; i++) &#123; %&gt;</span><br><span class="line">				&lt;li&gt;</span><br><span class="line">					&lt;a href=<span class="string">"&lt;%= obj.users[i].url %&gt;"</span>&gt;</span><br><span class="line">						&lt;%= obj.users[i].name %&gt;</span><br><span class="line">					&lt;<span class="regexp">/a&gt;</span></span><br><span class="line"><span class="regexp">				&lt;/</span>li&gt;</span><br><span class="line">			&lt;% &#125; %&gt;</span><br><span class="line">		&lt;% &#125; <span class="keyword">else</span> &#123; %&gt;</span><br><span class="line">			&lt;p&gt;不展示列表&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">		&lt;% &#125; %&gt;</span></span><br><span class="line"><span class="regexp">	&lt;/u</span>l&gt;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-2核心代码"><a href="#2-2核心代码" class="headerlink" title="2.2核心代码"></a>2.2核心代码</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> tpl = <span class="string">''</span></span><br><span class="line"><span class="keyword">let</span> match = <span class="string">''</span>  <span class="comment">// 记录exec函数匹配到的值</span></span><br><span class="line"><span class="comment">// 匹配模板id</span></span><br><span class="line"><span class="keyword">const</span> idReg = <span class="regexp">/[\s\W]/g</span></span><br><span class="line"><span class="comment">// 匹配JavaScript语句或变量</span></span><br><span class="line"><span class="keyword">const</span> tplReg = <span class="regexp">/&lt;%=?\s*([^%&gt;]+?)\s*%&gt;/g</span></span><br><span class="line"><span class="keyword">const</span> keyReg = <span class="regexp">/(for|if|else|switch|case|break|&#123;|&#125;)/g</span>   <span class="comment">// **** 增加正则匹配语句</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> add = <span class="function">(<span class="params">str, result, js</span>) =&gt;</span> &#123;</span><br><span class="line">	str = str.replace(<span class="regexp">/[\r\n\t]/g</span>, <span class="string">''</span>)</span><br><span class="line">		.replace(<span class="regexp">/\\/g</span>, <span class="string">'\\\\'</span>)</span><br><span class="line">		.replace(<span class="regexp">/'/g</span>, <span class="string">"\\'"</span>)</span><br><span class="line">        <span class="comment">// **** 增加三元表达式的判断，三种情况：JavaScript语句、JavaScript变量、HTML结构。</span></span><br><span class="line">	result += js ? str.match(keyReg) ? <span class="string">`<span class="subst">$&#123;str&#125;</span>`</span> : <span class="string">`result.push(<span class="subst">$&#123;str&#125;</span>);`</span> : <span class="string">`result.push('<span class="subst">$&#123;str&#125;</span>');`</span></span><br><span class="line">	<span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> tmpl = <span class="function">(<span class="params">str, data</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="comment">// 记录HTML结构匹配的开始位置</span></span><br><span class="line">	<span class="keyword">let</span> cursor = <span class="number">0</span></span><br><span class="line">	<span class="keyword">let</span> result = <span class="string">'let result = [];'</span></span><br><span class="line">	<span class="comment">// 如果是模板字符串，会包含非单词部分（&lt;, &gt;, %,  等）；如果是id，则需要通过getElementById获取</span></span><br><span class="line">	<span class="keyword">if</span> (!idReg.test(str)) &#123;</span><br><span class="line">		tpl = <span class="built_in">document</span>.getElementById(str).innerHTML</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		tpl = str</span><br><span class="line">	&#125;</span><br><span class="line">        <span class="comment">// 使用exec函数，每次匹配成功会动态改变index的值</span></span><br><span class="line">	<span class="keyword">while</span> (match = tplReg.exec(tpl)) &#123;</span><br><span class="line">		result = add(tpl.slice(cursor, match.index), result) <span class="comment">// 匹配HTML结构</span></span><br><span class="line">		result = add(match[<span class="number">1</span>], result, <span class="literal">true</span>)		     <span class="comment">// **** 匹配JavaScript语句、变量</span></span><br><span class="line">		cursor = match.index + match[<span class="number">0</span>].length	             <span class="comment">// 改变HTML结果匹配的开始位置</span></span><br><span class="line">	&#125;</span><br><span class="line">	result = add(tpl.slice(cursor), result)		             <span class="comment">// 匹配剩余的HTML结构</span></span><br><span class="line">	result += <span class="string">'return result.join("")'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(tmpl(<span class="string">'template'</span>))</span><br></pre></td></tr></table></figure>
+<h4 id="2-3执行后的代码格式化如下"><a href="#2-3执行后的代码格式化如下" class="headerlink" title="2.3执行后的代码格式化如下"></a>2.3执行后的代码格式化如下</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&quot; let result = [];</span><br><span class="line">result.push(&apos;&lt;ul&gt;&apos;);</span><br><span class="line">if (obj.show) &#123;</span><br><span class="line">    result.push(&apos;&apos;);</span><br><span class="line">    for (var i = 0; i &lt; obj.users.length; i++) &#123;</span><br><span class="line">        result.push(&apos;&lt;li&gt;&lt;a href=&quot;&apos;);</span><br><span class="line">        result.push(obj.users[i].url);</span><br><span class="line">        result.push(&apos;&quot;&gt;&apos;);</span><br><span class="line">        result.push(obj.users[i].name);</span><br><span class="line">        result.push(&apos;&lt;/a&gt;&lt;/li&gt;&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">    result.push(&apos;&apos;);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    result.push(&apos;&lt;p&gt;什么鬼什么鬼&lt;/p&gt;&apos;);</span><br><span class="line">&#125;</span><br><span class="line">result.push(&apos;&lt;/ul&gt;&apos;);</span><br><span class="line">return result.join(&quot;&quot;) &quot;</span><br></pre></td></tr></table></figure>
+<h3 id="3、Function-apply-call-动态生成HTML代码"><a href="#3、Function-apply-call-动态生成HTML代码" class="headerlink" title="3、Function + apply(call)动态生成HTML代码"></a>3、Function + apply(call)动态生成HTML代码</h3><p>使用function构造函数直接创建一个函数，这样做的性能会稍微差一点（双重解析：js解析js代码，代码包含在字符传中，也就是说在js代码运行的同时必须启动一个解析器来解析新的代码。实例化一个新的解析器有不容忽视的开销，所以这种代码比直接解析慢得多。）<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'console.log(a + b)'</span>)</span><br><span class="line">a(<span class="number">1</span>, <span class="number">2</span>) <span class="comment">// =&gt; 3</span></span><br></pre></td></tr></table></figure></p>
+<p>如果需要传入参数，可使用call或者apply改变函数执行时所在的作用域即可<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a.apply(data)</span><br></pre></td></tr></table></figure></p>
+<h3 id="4、模板缓存"><a href="#4、模板缓存" class="headerlink" title="4、模板缓存"></a>4、模板缓存</h3><p>使用模板的原因不仅在于避免手动拼接字符串而带来不必要的错误，而且在某些场景下可以复用模板代码。为了避免同一个模板多次重复拼接字符串，可以将模板缓存起来。我们这里缓存当传入的是id时可以缓存下来。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> tpl = <span class="string">''</span></span><br><span class="line"><span class="keyword">let</span> match = <span class="string">''</span></span><br><span class="line"><span class="keyword">const</span> cache = &#123;&#125;</span><br><span class="line"><span class="comment">// 匹配模板id</span></span><br><span class="line"><span class="keyword">const</span> idReg = <span class="regexp">/[\s\W]/g</span></span><br><span class="line"><span class="comment">// 匹配JavaScript语句或变量</span></span><br><span class="line"><span class="keyword">const</span> tplReg = <span class="regexp">/&lt;%=?\s*([^%&gt;]+?)\s*%&gt;/g</span></span><br><span class="line"><span class="comment">// 匹配各种关键字</span></span><br><span class="line"><span class="keyword">const</span> keyReg = <span class="regexp">/(for|if|else|switch|case|break|&#123;|&#125;)/g</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> add = <span class="function">(<span class="params">str, result, js</span>) =&gt;</span> &#123;</span><br><span class="line">	str = str.replace(<span class="regexp">/[\r\n\t]/g</span>, <span class="string">''</span>)</span><br><span class="line">		.replace(<span class="regexp">/\\/g</span>, <span class="string">'\\\\'</span>)</span><br><span class="line">		.replace(<span class="regexp">/'/g</span>, <span class="string">"\\'"</span>)</span><br><span class="line">	result += js ? str.match(keyReg) ? <span class="string">`<span class="subst">$&#123;str&#125;</span>`</span> : <span class="string">`result.push(<span class="subst">$&#123;str&#125;</span>);`</span> : <span class="string">`result.push('<span class="subst">$&#123;str&#125;</span>');`</span></span><br><span class="line">	<span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> tmpl = <span class="function">(<span class="params">str, data</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">let</span> cursor = <span class="number">0</span></span><br><span class="line">	<span class="keyword">let</span> result = <span class="string">'let result = [];'</span></span><br><span class="line">        <span class="comment">// 如果是模板字符串，会包含非单词部分（&lt;, &gt;, %,  等）；如果是id，则需要通过getElementById获取</span></span><br><span class="line">	<span class="keyword">if</span> (!idReg.test(str)) &#123;</span><br><span class="line">		tpl = <span class="built_in">document</span>.getElementById(str).innerHTML</span><br><span class="line">		<span class="comment">// 缓存处理</span></span><br><span class="line">		<span class="keyword">if</span> (cache[str]) &#123;</span><br><span class="line">			<span class="keyword">return</span> cache[str].apply(data)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		tpl = str</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="comment">// 使用exec函数，动态改变index的值</span></span><br><span class="line">	<span class="keyword">while</span> (match = tplReg.exec(tpl)) &#123;</span><br><span class="line">		result = add(tpl.slice(cursor, match.index), result) <span class="comment">// 匹配HTML结构</span></span><br><span class="line">		result = add(match[<span class="number">1</span>], result, <span class="literal">true</span>)		     <span class="comment">// 匹配JavaScript语句、变量</span></span><br><span class="line">		cursor = match.index + match[<span class="number">0</span>].length		     <span class="comment">// 改变HTML结果匹配的开始位置</span></span><br><span class="line">	&#125;</span><br><span class="line">	result = add(tpl.slice(cursor), result)		             <span class="comment">// 匹配剩余的HTML结构</span></span><br><span class="line">	result += <span class="string">'return result.join("")'</span></span><br><span class="line">	<span class="keyword">let</span> fn = <span class="keyword">new</span> <span class="built_in">Function</span>(result)		                     <span class="comment">// 转成可执行的JS代码</span></span><br><span class="line">	<span class="keyword">if</span> (!cache[str] &amp;&amp; !idReg.test(str)) &#123;                       <span class="comment">// 只有传入的是id的情况下才缓存模板</span></span><br><span class="line">		cache[str] = fn</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> fn.apply(data)		                              <span class="comment">// apply改变函数执行的作用域</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><h4 id="大体思路如下："><a href="#大体思路如下：" class="headerlink" title="大体思路如下："></a>大体思路如下：</h4><p>模板引擎实现的原理大致是将模板中的HTML结构和JavaScript语句、变量分离，将HTML结构以字符串的形式push到数组中，将JavaScript语句独立抽取出来，将JavaScript变量以其自身push到数组中，通过replace函数的替换或者exec函数的遍历，构建出带有数据的HTML代码，最后通过Function构造函数 + apply(call)函数生成可执行的JavaScript代码。</p>
+<h4 id="继续追问："><a href="#继续追问：" class="headerlink" title="继续追问："></a>继续追问：</h4><p>1、为什么要用数组？可以用字符串吗？两者有什么区别？</p>
+<blockquote>
+<p>数组操作比字符串拼接快一些</p>
+</blockquote>
+<p>2、简单的一下replace和exec函数的使用？</p>
+<blockquote>
+<p>自行 mdn 或者 参考<a href="https://github.com/careteenL/webFEDeveloper/blob/master/Front-end-knowledge/advanced/20180627-RegExp.md" target="_blank" rel="noopener">正则表达式奇技淫巧</a>中的理解</p>
+</blockquote>
+<p>3、exec 和match函数有什么不同？</p>
+<blockquote>
+<p>同2</p>
+</blockquote>
+<p>4、/&lt;%=?\s<em>([^%&gt;]+?)\s</em>%&gt;/g 这段正则是什么意思？</p>
+<blockquote>
+<p>匹配&lt;% xxx %&gt; or &lt;%= xxx %&gt;</p>
+</blockquote>
+<p>5、简单说明apply、call、bind函数的区别？</p>
+<blockquote>
+<p>见<a href="a">apply、call、bind</a></p>
+</blockquote>
+<p>6、Function构造函数的使用，有什么弊端？</p>
+<blockquote>
+<p>双重解析：js解析js代码，代码包含在字符传中，也就是说在js代码运行的同时必须启动一个解析器来解析新的代码。实例化一个新的解析器有不容忽视的开销，所以这种代码比直接解析慢得多。</p>
+</blockquote>
+<p>7、函数声明和函数表达式的区别？</p>
+<blockquote>
+<p><a href="https://www.cnblogs.com/xbj-2016/p/5903611.html" target="_blank" rel="noopener">函数申明在js解析时会函数提升；函数表达式的值是在js运行时确定。</a></p>
+</blockquote>
+<h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><ul>
+<li><a href="https://zhuanlan.zhihu.com/p/38565975" target="_blank" rel="noopener">编写一个简单的JavaScript模板引擎 -zhihu</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/模板/" rel="tag"># 模板</a>
+          
+            <a href="/tags/面试官系列/" rel="tag"># 面试官系列</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/18/regexp/" rel="next" title="正则表达式奇技淫巧">
+                <i class="fa fa-chevron-left"></i> 正则表达式奇技淫巧
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Careteen Wang</p>
+              <p class="site-description motion-element" itemprop="description">Live Fast, Die Young.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">Artikel</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">Kategorien</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">Tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#模板引擎"><span class="nav-number">1.</span> <span class="nav-text">模板引擎</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模板引擎的实现"><span class="nav-number">1.2.</span> <span class="nav-text">模板引擎的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#步骤"><span class="nav-number">1.2.1.</span> <span class="nav-text">步骤</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1、模板获取"><span class="nav-number">1.3.</span> <span class="nav-text">1、模板获取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、模板中HTML结构与JavaScript语句、变量分离-的思路"><span class="nav-number">1.4.</span> <span class="nav-text">2、模板中HTML结构与JavaScript语句、变量分离 的思路</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1模板写法"><span class="nav-number">1.4.1.</span> <span class="nav-text">2.1模板写法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2核心代码"><span class="nav-number">1.4.2.</span> <span class="nav-text">2.2核心代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3执行后的代码格式化如下"><span class="nav-number">1.4.3.</span> <span class="nav-text">2.3执行后的代码格式化如下</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、Function-apply-call-动态生成HTML代码"><span class="nav-number">1.5.</span> <span class="nav-text">3、Function + apply(call)动态生成HTML代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、模板缓存"><span class="nav-number">1.6.</span> <span class="nav-text">4、模板缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.7.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#大体思路如下："><span class="nav-number">1.7.1.</span> <span class="nav-text">大体思路如下：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#继续追问："><span class="nav-number">1.7.2.</span> <span class="nav-text">继续追问：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用"><span class="nav-number">1.8.</span> <span class="nav-text">引用</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Careteen Wang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+<span class="post-meta-divider">|</span>
+<span id="busuanzi_container_site_pv">
+    Total visited <span id="busuanzi_value_site_pv"></span> times
+</span>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+  
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'nVTlMWc54dSazbe7bhoiHnm0-gzGzoHsz',
+        appKey: 't6TvvIqvqopTfB0g0tcwEYEt',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
