@@ -1,9 +1,10 @@
 ---
-title: douban-study
+title: 基于NodeJs+MongoDB+jQuery搭建的豆瓣电影音乐网站
 date: 2018-08-01 18:18:07
 tags:
     - 豆瓣
-    - Node
+    - NodeJs
+    - MongoDB
 ---
 ![douban](douban-study/douban.png)
 学习NodeJs和MongoDB的过程中仿照豆瓣搭建的网站
