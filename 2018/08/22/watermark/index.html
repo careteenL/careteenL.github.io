@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="canvas,watermark,水印," />
 
 
 
@@ -79,15 +79,16 @@
 
 
 
-<meta name="description" content="Live Fast, Die Young.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Careteen">
-<meta property="og:url" content="http://blog.careteen.wang/tags/MongoDB/index.html">
+<meta name="keywords" content="canvas,watermark,水印">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于canvas生成水印">
+<meta property="og:url" content="http://blog.careteen.wang/2018/08/22/watermark/index.html">
 <meta property="og:site_name" content="Careteen">
-<meta property="og:description" content="Live Fast, Die Young.">
+<meta property="og:image" content="http://blog.careteen.wang/2018/08/22/watermark/watermark.png">
+<meta property="og:updated_time" content="2018-08-22T09:09:33.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Careteen">
-<meta name="twitter:description" content="Live Fast, Die Young.">
+<meta name="twitter:title" content="基于canvas生成水印">
+<meta name="twitter:image" content="http://blog.careteen.wang/2018/08/22/watermark/watermark.png">
 
 
 
@@ -117,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="http://blog.careteen.wang/tags/MongoDB/"/>
+  <link rel="canonical" href="http://blog.careteen.wang/2018/08/22/watermark/"/>
 
 
 
 
 
-  <title>Tag: MongoDB | Careteen</title>
+  <title>基于canvas生成水印 | Careteen</title>
   
 
 
@@ -152,7 +153,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -236,54 +237,167 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>MongoDB<small>Tag</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.careteen.wang/2018/08/22/watermark/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Careteen Wang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Careteen">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/08/01/douban-study/" itemprop="url">
-              
-                <span itemprop="name">基于NodeJs+MongoDB+jQuery搭建的豆瓣电影音乐网站</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">基于canvas生成水印</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-08-01T18:18:07+08:00"
-              content="2018-08-01" >
-          08-01
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-22T16:59:35+08:00">
+                2018-08-22
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/22/watermark/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/08/22/watermark/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="/2018/08/22/watermark/watermark.png" alt="watermark"></p>
+<a id="more"></a>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>其一：在PC端，对内部系统的截图应该考虑安全问题，截图内容不管是否敏感不可泄露，安全问题也不容忽视。</p>
+<p>为整个系统页面增加水印，对于内部人员的截图等敏感操作能够起到一定的提示作用。</p>
+<p>其二：对于移动端，类似于新浪微博在<strong>发布动态</strong>后会为图片添加带有个人标记的水印。</p>
+<p>本库基于<code>canvas</code>提供以上两种添加水印的方式。</p>
+<h2 id="基于canvas生成水印"><a href="#基于canvas生成水印" class="headerlink" title="基于canvas生成水印"></a>基于canvas生成水印</h2><p><a href="https://github.com/careteenL/watermark" target="_blank" rel="noopener">传送门</a></p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/canvas/" rel="tag"># canvas</a>
+          
+            <a href="/tags/watermark/" rel="tag"># watermark</a>
+          
+            <a href="/tags/水印/" rel="tag"># 水印</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/01/douban-study/" rel="next" title="基于NodeJs+MongoDB+jQuery搭建的豆瓣电影音乐网站">
+                <i class="fa fa-chevron-left"></i> 基于NodeJs+MongoDB+jQuery搭建的豆瓣电影音乐网站
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -291,6 +405,17 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
 
         </div>
         
@@ -311,8 +436,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -372,6 +506,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于canvas生成水印"><span class="nav-number">2.</span> <span class="nav-text">基于canvas生成水印</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -512,6 +662,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -558,6 +712,30 @@
 
     
 
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'careteenL',
+            repo: 'careteenL.github.io',
+            
+            lang: "zh-Hans" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '5875036db0a0bba3487e046a7e312f5ed82013e2',
+            
+                client_id: 'e7f4e63dc8c1152202c4'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
     
 
 
